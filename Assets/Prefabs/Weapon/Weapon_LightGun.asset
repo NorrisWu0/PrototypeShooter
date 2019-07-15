@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f45ce6a1204ff42a104c57795b1463, type: 3}
+  m_Name: Weapon_LightGun
+  m_EditorClassIdentifier: 
+  weaponName: Light Gun
+  m_Bullet: {fileID: 4025346818998850264, guid: 9ad9300fbeeba964bbef1cf038c615bc,
+    type: 3}
+  m_BulletLifeTime: 10
+  m_CurrentAmmo: 8
+  m_MagCapacity: 8
+  m_TotalAmmo: 64
+  m_ReloadRate: 2
+  m_ReloadRateTimer: 0
+  m_FireRate: 0.5
+  m_FireRateTimer: 0
+  m_IsReloading: 0
+  m_DisperseValue: 0
