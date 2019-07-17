@@ -8,6 +8,7 @@ using TMPro;
 public class Weapon : ScriptableObject
 {
     #region Weapon Variables
+    [Header("Weapon Setting")]
     public string weaponName;
     [SerializeField] private GameObject m_Bullet;
     [SerializeField] private int m_BulletLifeTime;
@@ -17,9 +18,16 @@ public class Weapon : ScriptableObject
     [SerializeField] private bool m_IsReloading = false;
     [SerializeField] private float m_DisperseValue;
 
+    [Header("UI Setting")]
     // Need a better way to make this work
     private TextMeshProUGUI m_WeaponReloadUIText, m_AmmoUIText, m_WeaponNameUIText;
     private Slider m_AmmoUIBar;
+
+    [Header("Audio Setting")]
+    public AudioClip m_FiringAudio;
+    public AudioClip m_ReloadAudio;
+    public AudioClip m_BlankFireAudio;
+
     #endregion
 
     #region Weapon Function
@@ -33,7 +41,12 @@ public class Weapon : ScriptableObject
             Destroy(_bulletClone, m_BulletLifeTime);
             m_CurrentAmmo--;
             m_FireRateTimer = Time.time + m_FireRate;
+
+            #region PlayFiringAudio
+            GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>().PlayOneShot(m_FiringAudio);
+            #endregion
         }
+
         UpdateWeaponInformationUI();
     }
 

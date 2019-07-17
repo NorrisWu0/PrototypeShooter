@@ -7,10 +7,12 @@ public class Enemy : MonoBehaviour
     #region Enemy Setting
     [Header("Enemy Setting", order = 0)]
     [Space(5, order = 1)]
-    [SerializeField] private float m_Health;
-    [SerializeField] private GameObject m_DeathFX;
-    private float m_DeathFXTimer;
-    private Rigidbody2D m_RB2D;
+    [SerializeField] float m_Health;
+    [SerializeField] bool m_IsAlive = true;
+    [SerializeField] GameObject m_DeathFX;
+
+    float m_DeathFXTimer;
+    Rigidbody2D m_RB2D;
 
     [Space(20, order = 2)]
     #endregion
@@ -18,9 +20,16 @@ public class Enemy : MonoBehaviour
     #region Movement Setting
     [Header("Movement Setting", order = 3)]
     [Space(5, order = 4)]
-    [SerializeField] private float m_MoveSpeed, m_RotateRate;
+    [SerializeField] float m_MoveSpeed;
+    [SerializeField] float m_RotateRate;
 
     private GameObject m_Target;
+    #endregion
+
+    #region Testing Area
+    [SerializeField] Vector3 monitor_speed;
+    [SerializeField] float monitor_alpha;
+
     #endregion
 
     private void Start()
@@ -30,9 +39,22 @@ public class Enemy : MonoBehaviour
         m_DeathFXTimer = m_DeathFX.GetComponent<ParticleSystem>().main.duration;
     }
 
+    private void Update()
+    {
+        if (m_IsAlive)
+        {
+            #region Slowly reduce speed
+            monitor_speed = m_RB2D.velocity;
+            
+
+            #endregion
+        }
+    }
+
     private void FixedUpdate()
     {
-        ChaseTarget();
+        if (m_IsAlive && m_Target != null)
+            ChaseTarget();
     }
 
     #region Enemy Function
@@ -50,8 +72,10 @@ public class Enemy : MonoBehaviour
         Destroy(_deathFX, m_DeathFXTimer);
 
         // Slowly decrease alpha value of sprite
+        SpriteRenderer _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, .2f);
 
-        Destroy(gameObject);
+        Destroy(gameObject, 10f);
     }
     #endregion
 
