@@ -40,17 +40,18 @@ public class Enemy : MonoBehaviour
     {
         m_Health -= _damage;
 
-        CheckHealth();
+        if (m_Health < 0)
+            Die();
     }
 
-    private void CheckHealth()
+    private void Die()
     {
-        if (m_Health <= 0)
-        {
-            Destroy(gameObject);
-            GameObject _deathFX = Instantiate(m_DeathFX, transform.position, transform.rotation);
-            Destroy(_deathFX, m_DeathFXTimer);
-        }
+        GameObject _deathFX = Instantiate(m_DeathFX, transform.position, transform.rotation);
+        Destroy(_deathFX, m_DeathFXTimer);
+
+        // Slowly decrease alpha value of sprite
+
+        Destroy(gameObject);
     }
     #endregion
 
