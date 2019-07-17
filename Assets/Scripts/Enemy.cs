@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     [Space(5, order = 1)]
     [SerializeField] private float m_Health;
     [SerializeField] private GameObject m_DeathFX;
-    private float m_DeathFXTimer = 1f;
+    private float m_DeathFXTimer;
     private Rigidbody2D m_RB2D;
 
     [Space(20, order = 2)]
@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     {
         m_RB2D = GetComponent<Rigidbody2D>();
         m_Target = GameObject.FindGameObjectWithTag("Player").gameObject;
+        m_DeathFXTimer = m_DeathFX.GetComponent<ParticleSystem>().main.duration;
     }
 
     private void FixedUpdate()
@@ -47,8 +48,8 @@ public class Enemy : MonoBehaviour
         if (m_Health <= 0)
         {
             Destroy(gameObject);
-            //GameObject _deathFX = Instantiate(m_DeathFX, transform.position, transform.rotation);
-            //Destroy(_deathFX, m_DeathFXTimer);
+            GameObject _deathFX = Instantiate(m_DeathFX, transform.position, transform.rotation);
+            Destroy(_deathFX, m_DeathFXTimer);
         }
     }
     #endregion

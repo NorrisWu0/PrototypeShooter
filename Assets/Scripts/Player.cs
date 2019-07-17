@@ -1,21 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.UI;
 using TMPro;
 
 public class Player : MonoBehaviour
 {
-    #region GameObject Settings
+    #region GameObject Variables Settings
 
     #region Player Setting
     [Header("Player Setting", order = 0)]
     [Space(5, order = 1)]
-    [SerializeField] private float m_Health = 100;
-    [SerializeField] private int m_LiveCount = 3;
-    [SerializeField] private GameObject m_DeathFX;
+    [SerializeField] float m_Health = 100;
+    [SerializeField] float m_MaxHealth = 100;
+    [SerializeField] int m_LiveCount = 3;
+    [SerializeField] GameObject m_DeathFX;
 
-    [SerializeField] private HealthUIVariables m_HealthUIVariables = new HealthUIVariables();
+    [SerializeField] HealthUIVariables m_HealthUIVariables = new HealthUIVariables();
     [System.Serializable]
     class HealthUIVariables
     {
@@ -23,8 +24,8 @@ public class Player : MonoBehaviour
         public GameObject m_HealthBarUI;
     }
 
-    private float m_DeathFXTimer = 1f;
-    private Rigidbody2D m_RB2D;
+    float m_DeathFXTimer = 1f;
+    Rigidbody2D m_RB2D;
     
     [Space(20, order = 2)]
     #endregion
@@ -33,8 +34,8 @@ public class Player : MonoBehaviour
     [Header("Movement Setting", order = 3)]
     [Space(5, order = 4)]
     [SerializeField] float m_PlayerSpeed = 60f;
-    private float m_MoveHorizontal;
-    private float m_MoveVertical;
+    float m_MoveHorizontal;
+    float m_MoveVertical;
 
     [Space(20, order = 5)]
     #endregion
@@ -42,20 +43,18 @@ public class Player : MonoBehaviour
     #region Weapon Setting
     [Header("Weapon Setting", order = 6)]
     [Space(5, order = 7)]
-    [SerializeField] private Weapon[] m_WeaponsOwned;
-    [SerializeField] private int m_CurrentWeaponIndex = 0;
-    [SerializeField] private Weapon m_CurrentWeapon;
-    [SerializeField] private Transform m_WeaponMuzzle;
+    [SerializeField] Weapon[] m_WeaponsOwned;
+    [SerializeField] int m_CurrentWeaponIndex = 0;
+    [SerializeField] Weapon m_CurrentWeapon;
+    [SerializeField] Transform m_WeaponMuzzle;
 
     [SerializeField] WeaponUIVariables m_WeaponUIVariables = new WeaponUIVariables();
     [System.Serializable]
     class WeaponUIVariables
     {
         public GameObject m_WeaponReloadUI;
-        public GameObject m_AmmoInfoUI;
-        public GameObject m_CurrentAmmoUI;
-        public GameObject m_MagCapacityUI;
-        public GameObject m_CurrantAmmoBarUI;
+        public GameObject m_AmmoUIText;
+        public GameObject m_AmmoUIBar;
         public GameObject m_WeaponNameUI;
     }
     
@@ -70,12 +69,15 @@ public class Player : MonoBehaviour
     void Start()
     {
         m_RB2D = GetComponent<Rigidbody2D>();
+        m_Health = m_MaxHealth;
+
         m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
         // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
-        m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
-            m_WeaponUIVariables.m_AmmoInfoUI, m_WeaponUIVariables.m_CurrentAmmoUI,
-            m_WeaponUIVariables.m_MagCapacityUI, m_WeaponUIVariables.m_CurrantAmmoBarUI,
+        m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI, 
+            m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
             m_WeaponUIVariables.m_WeaponNameUI);
+
+        UpdateHealthInfo();
     }
 
     private void Update()
@@ -107,6 +109,8 @@ public class Player : MonoBehaviour
 
         if (m_Health <= 100)
             KillPlayer();
+
+        UpdateHealthInfo();
     }
     
     private void KillPlayer()
@@ -129,8 +133,7 @@ public class Player : MonoBehaviour
             m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
             // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
             m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
-                m_WeaponUIVariables.m_AmmoInfoUI, m_WeaponUIVariables.m_CurrentAmmoUI,
-                m_WeaponUIVariables.m_MagCapacityUI, m_WeaponUIVariables.m_CurrantAmmoBarUI,
+                m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
                 m_WeaponUIVariables.m_WeaponNameUI);
         }
         else
@@ -139,8 +142,7 @@ public class Player : MonoBehaviour
             m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
             // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
             m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
-                m_WeaponUIVariables.m_AmmoInfoUI, m_WeaponUIVariables.m_CurrentAmmoUI,
-                m_WeaponUIVariables.m_MagCapacityUI, m_WeaponUIVariables.m_CurrantAmmoBarUI,
+                m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
                 m_WeaponUIVariables.m_WeaponNameUI);
         }
     }
@@ -153,9 +155,8 @@ public class Player : MonoBehaviour
             m_CurrentWeaponIndex = 2;
             m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
             // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
-            m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI, 
-                m_WeaponUIVariables.m_AmmoInfoUI, m_WeaponUIVariables.m_CurrentAmmoUI, 
-                m_WeaponUIVariables.m_MagCapacityUI, m_WeaponUIVariables.m_CurrantAmmoBarUI, 
+            m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
+                m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
                 m_WeaponUIVariables.m_WeaponNameUI);
         }
         else
@@ -163,12 +164,10 @@ public class Player : MonoBehaviour
             m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
             // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
             m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
-                m_WeaponUIVariables.m_AmmoInfoUI, m_WeaponUIVariables.m_CurrentAmmoUI,
-                m_WeaponUIVariables.m_MagCapacityUI, m_WeaponUIVariables.m_CurrantAmmoBarUI,
+                m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
                 m_WeaponUIVariables.m_WeaponNameUI);
         }
     }
-
     #endregion
 
     #region Movement Functions
@@ -196,5 +195,13 @@ public class Player : MonoBehaviour
         #endregion
     }
 
+    #endregion
+
+    #region UI Functions
+    private void UpdateHealthInfo()
+    {
+        m_HealthUIVariables.m_HealthTextUI.GetComponent<TextMeshProUGUI>().SetText("Health: " + m_Health + "/" + m_MaxHealth);
+        m_HealthUIVariables.m_HealthBarUI.GetComponent<Slider>().value = m_Health / m_MaxHealth;
+    }
     #endregion
 }

@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: 5
-  m_DeathFX: {fileID: 0}
+  m_DeathFX: {fileID: 977638037627857451, guid: fbddd827d36d5bf4e898986492c08976,
+    type: 3}
   m_MoveSpeed: 50
   m_RotateRate: 1

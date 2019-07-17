@@ -18,9 +18,8 @@ public class Weapon : ScriptableObject
     [SerializeField] private float m_DisperseValue;
 
     // Need a better way to make this work
-    private GameObject m_AmmoInfoUI;
-    private TextMeshProUGUI m_WeaponReloadUIText, m_CurrentAmmoUIText, m_MagCapacityUIText, m_WeaponNameUIText;
-    private Slider m_CurrantAmmoUIBar;
+    private TextMeshProUGUI m_WeaponReloadUIText, m_AmmoUIText, m_WeaponNameUIText;
+    private Slider m_AmmoUIBar;
     #endregion
 
     #region Weapon Function
@@ -75,40 +74,30 @@ public class Weapon : ScriptableObject
     }
     #endregion
 
-    #region Weapon UI Functions
-    public void SetupWeaponVariables(GameObject _weaponReloadUI, GameObject _ammoInfoUI, GameObject _currentAmmoUI, GameObject _magCapacityUI, GameObject _currantAmmoBarUI, GameObject _weaponNameUI)
+    #region UI Functions
+    public void SetupWeaponVariables(GameObject _weaponReloadUI, GameObject _ammoUIText, GameObject _ammoUIBar, GameObject _weaponUIName)
     {
         m_FireRateTimer = 0f;
 
         m_WeaponReloadUIText = _weaponReloadUI.GetComponent<TextMeshProUGUI>();
-        m_CurrentAmmoUIText = _currentAmmoUI.GetComponent<TextMeshProUGUI>();
-        m_MagCapacityUIText = _magCapacityUI.GetComponent<TextMeshProUGUI>();
-        m_CurrantAmmoUIBar = _currantAmmoBarUI.GetComponent<Slider>();
-        m_WeaponNameUIText = _weaponNameUI.GetComponent<TextMeshProUGUI>();
-
-        // Need a better way to make this work
-        m_AmmoInfoUI = _ammoInfoUI;
+        m_AmmoUIText = _ammoUIText.GetComponent<TextMeshProUGUI>();
+        m_AmmoUIBar = _ammoUIBar.GetComponent<Slider>();
+        m_WeaponNameUIText = _weaponUIName.GetComponent<TextMeshProUGUI>();
 
         // Fix if other weapon is reloading, weapon info won't display issue. (Because AmmoUI is disabled during last weapon reload function)
         if (m_IsReloading)
-        {
-            m_AmmoInfoUI.SetActive(false);
-            m_WeaponReloadUIText.gameObject.SetActive(true);
-        }
+            ToggleReloadUI(!m_IsReloading);
         else
-        {
-            m_AmmoInfoUI.SetActive(true);
-            m_WeaponReloadUIText.gameObject.SetActive(false);
-        }
+            ToggleReloadUI(m_IsReloading);
+
         UpdateWeaponInformationUI();
 
     }
 
     private void UpdateWeaponInformationUI()
     {
-        m_CurrentAmmoUIText.SetText(m_CurrentAmmo.ToString());
-        m_MagCapacityUIText.SetText(m_TotalAmmo.ToString());
-        m_CurrantAmmoUIBar.value = (m_CurrentAmmo * 1f / m_MagCapacity * 1f);
+        m_AmmoUIText.SetText(m_CurrentAmmo.ToString() + "/" + m_TotalAmmo.ToString());
+        m_AmmoUIBar.value = (m_CurrentAmmo * 1f / m_MagCapacity);
         m_WeaponNameUIText.SetText(weaponName.ToString());
     }
 
@@ -116,7 +105,7 @@ public class Weapon : ScriptableObject
     {
         m_WeaponReloadUIText.gameObject.SetActive(_value);
         // Need a better way to make this work
-        m_AmmoInfoUI.SetActive(!_value);
+        m_AmmoUIText.gameObject.SetActive(!_value);
     }
     #endregion
 }
