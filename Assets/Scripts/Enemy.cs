@@ -5,21 +5,23 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     #region Enemy Setting
-    [Header("Enemy Setting", order = 0)]
-    [Space(5, order = 1)]
+    [Header("Enemy Setting")]
     [SerializeField] float m_Health;
     [SerializeField] bool m_IsAlive = true;
-    [SerializeField] GameObject m_DeathFX;
-
-    float m_DeathFXTimer;
+    
     Rigidbody2D m_RB2D;
+    #endregion
 
-    [Space(20, order = 2)]
+    #region VFX Setting
+    [Header("VFX Setting")]
+    [SerializeField] GameObject m_DeathFX;
+    [SerializeField] GameObject[] m_Fragments;
+    float m_DeathFXTimer;
+
     #endregion
 
     #region Movement Setting
-    [Header("Movement Setting", order = 3)]
-    [Space(5, order = 4)]
+    [Header("Movement Setting")]
     [SerializeField] float m_MoveSpeed;
     [SerializeField] float m_RotateRate;
 
@@ -29,7 +31,6 @@ public class Enemy : MonoBehaviour
     #region Testing Area
     [SerializeField] Vector3 monitor_speed;
     [SerializeField] float monitor_alpha;
-
     #endregion
 
     private void Start()
@@ -62,7 +63,7 @@ public class Enemy : MonoBehaviour
     {
         m_Health -= _damage;
 
-        if (m_Health < 0)
+        if (m_Health <= 0)
             Die();
     }
 
@@ -70,12 +71,17 @@ public class Enemy : MonoBehaviour
     {
         GameObject _deathFX = Instantiate(m_DeathFX, transform.position, transform.rotation);
         Destroy(_deathFX, m_DeathFXTimer);
-
-        // Slowly decrease alpha value of sprite
-        SpriteRenderer _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.color = new Color(_spriteRenderer.color.r, _spriteRenderer.color.g, _spriteRenderer.color.b, .2f);
-
-        Destroy(gameObject, 10f);
+        
+        foreach (GameObject _fragment in m_Fragments)
+        {
+            _fragment.SetActive(true);
+            _fragment.transform.parent = null;
+            _fragment.GetComponent<Rigidbody2D>().velocity = m_RB2D.velocity;
+            _fragment.transform.Rotate(new Vector3(0, 0, Random.Range(-90f, 90f)));
+            Destroy(_fragment, 3f);
+        }
+        
+        Destroy(gameObject);
     }
     #endregion
 
