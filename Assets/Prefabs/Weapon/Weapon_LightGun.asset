@@ -16,7 +16,7 @@ MonoBehaviour:
   m_Bullet: {fileID: 4025346818998850264, guid: 9ad9300fbeeba964bbef1cf038c615bc,
     type: 3}
   m_BulletLifeTime: 5
-  m_CurrentAmmo: 719
+  m_CurrentAmmo: 6400
   m_MagCapacity: 8
   m_TotalAmmo: 64
   m_ReloadRate: 2

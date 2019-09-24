@@ -16,13 +16,13 @@ MonoBehaviour:
   m_Bullet: {fileID: 4025346818998850264, guid: 9ad9300fbeeba964bbef1cf038c615bc,
     type: 3}
   m_BulletLifeTime: 5
-  m_CurrentAmmo: 14
+  m_CurrentAmmo: 2000
   m_MagCapacity: 20
   m_TotalAmmo: 240
   m_ReloadRate: 4
   m_ReloadRateTimer: 0
   m_FireRate: 0.1
-  m_FireRateTimer: 670.6614
+  m_FireRateTimer: 0
   m_IsReloading: 0
   m_DisperseValue: 2
   m_FiringAudio: {fileID: 8300000, guid: b03e9f8c1ca191340a1eb981cf19f546, type: 3}

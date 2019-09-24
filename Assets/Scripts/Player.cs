@@ -9,8 +9,7 @@ public class Player : MonoBehaviour
     #region GameObject Variables Settings
 
     #region Player Setting
-    [Header("Player Setting", order = 0)]
-    [Space(5, order = 1)]
+    [Header("Player Setting")]
     [SerializeField] float m_Health = 100;
     [SerializeField] float m_MaxHealth = 100;
     [SerializeField] int m_LiveCount = 3;
@@ -18,7 +17,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] HealthUIVariables m_HealthUIVariables = new HealthUIVariables();
     [System.Serializable]
-    class HealthUIVariables
+    struct HealthUIVariables
     {
         public GameObject m_HealthTextUI;
         public GameObject m_HealthBarUI;
@@ -26,23 +25,17 @@ public class Player : MonoBehaviour
 
     float m_DeathFXTimer = 1f;
     Rigidbody2D m_RB2D;
-    
-    [Space(20, order = 2)]
     #endregion
 
     #region Movement Setting
-    [Header("Movement Setting", order = 3)]
-    [Space(5, order = 4)]
+    [Header("Movement Setting")]
     [SerializeField] float m_PlayerSpeed = 60f;
     float m_MoveHorizontal;
     float m_MoveVertical;
-
-    [Space(20, order = 5)]
     #endregion
 
     #region Weapon Setting
-    [Header("Weapon Setting", order = 6)]
-    [Space(5, order = 7)]
+    [Header("Weapon Setting")]
     [SerializeField] Weapon[] m_WeaponsOwned;
     [SerializeField] int m_CurrentWeaponIndex = 0;
     [SerializeField] Weapon m_CurrentWeapon;
@@ -50,14 +43,13 @@ public class Player : MonoBehaviour
 
     [SerializeField] WeaponUIVariables m_WeaponUIVariables = new WeaponUIVariables();
     [System.Serializable]
-    class WeaponUIVariables
+    struct WeaponUIVariables
     {
         public GameObject m_WeaponReloadUI;
         public GameObject m_AmmoUIText;
         public GameObject m_AmmoUIBar;
         public GameObject m_WeaponNameUI;
     }
-    
     #endregion
     
     #region Audio Setting - TODO
@@ -71,7 +63,7 @@ public class Player : MonoBehaviour
         m_RB2D = GetComponent<Rigidbody2D>();
         m_Health = m_MaxHealth;
 
-        m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
+        m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
         // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
         m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI, 
             m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
@@ -130,7 +122,7 @@ public class Player : MonoBehaviour
         m_CurrentWeaponIndex++;
         if (m_CurrentWeaponIndex < m_WeaponsOwned.Length)
         {
-            m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
+            m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
             // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
             m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
                 m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
@@ -139,7 +131,7 @@ public class Player : MonoBehaviour
         else
         {
             m_CurrentWeaponIndex = 0;
-            m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
+            m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
             // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
             m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
                 m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
@@ -153,7 +145,7 @@ public class Player : MonoBehaviour
         if (m_CurrentWeaponIndex < 0)
         {
             m_CurrentWeaponIndex = 2;
-            m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
+            m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
             // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
             m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
                 m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
@@ -161,7 +153,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            m_CurrentWeapon = m_WeaponsOwned[m_CurrentWeaponIndex];
+            m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
             // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
             m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
                 m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,

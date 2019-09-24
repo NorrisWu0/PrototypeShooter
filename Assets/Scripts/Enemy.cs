@@ -14,9 +14,8 @@ public class Enemy : MonoBehaviour
 
     #region VFX Setting
     [Header("VFX Setting")]
-    [SerializeField] GameObject m_DeathFX;
+    public GameObject deathFX;
     [SerializeField] GameObject[] m_Fragments;
-    float m_DeathFXTimer;
 
     #endregion
 
@@ -37,7 +36,6 @@ public class Enemy : MonoBehaviour
     {
         m_RB2D = GetComponent<Rigidbody2D>();
         m_Target = GameObject.FindGameObjectWithTag("Player").gameObject;
-        m_DeathFXTimer = m_DeathFX.GetComponent<ParticleSystem>().main.duration;
     }
 
     private void Update()
@@ -69,21 +67,20 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
-        GameObject _deathFX = Instantiate(m_DeathFX, transform.position, transform.rotation);
-        Destroy(_deathFX, m_DeathFXTimer);
-        
-        foreach (GameObject _fragment in m_Fragments)
-        {
-            _fragment.SetActive(true);
-            _fragment.transform.parent = null;
-            _fragment.GetComponent<Rigidbody2D>().velocity = m_RB2D.velocity;
-            _fragment.transform.Rotate(new Vector3(0, 0, Random.Range(-90f, 90f)));
-            Destroy(_fragment, 3f);
-        }
-        
-        Destroy(gameObject);
+        deathFX.transform.parent = null;
+        deathFX.SetActive(true);
+        Invoke("DisableExplosionFX", 2f);
+
+        gameObject.SetActive(false);
     }
     #endregion
+
+    void DisableExplosionFX()
+    {
+        deathFX.transform.parent = transform;
+        deathFX.transform.localPosition = Vector3.zero;
+        deathFX.SetActive(false);
+    }
 
     #region Movement Function
     private void ChaseTarget()
