@@ -27,7 +27,6 @@ public class Weapon : ScriptableObject
     public AudioClip m_FiringAudio;
     public AudioClip m_ReloadAudio;
     public AudioClip m_BlankFireAudio;
-
     #endregion
 
     #region Weapon Function

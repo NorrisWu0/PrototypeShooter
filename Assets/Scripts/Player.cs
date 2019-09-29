@@ -36,9 +36,9 @@ public class Player : MonoBehaviour
 
     #region Weapon Setting
     [Header("Weapon Setting")]
-    [SerializeField] Weapon[] m_WeaponsOwned;
     [SerializeField] int m_CurrentWeaponIndex = 0;
-    [SerializeField] Weapon m_CurrentWeapon;
+    [SerializeField] GameObject m_Projectile;
+    [SerializeField] List<Bullet> m_Bullets;
     [SerializeField] Transform m_WeaponMuzzle;
 
     [SerializeField] WeaponUIVariables m_WeaponUIVariables = new WeaponUIVariables();
@@ -62,29 +62,15 @@ public class Player : MonoBehaviour
     {
         m_RB2D = GetComponent<Rigidbody2D>();
         m_Health = m_MaxHealth;
-
-        m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
-        // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
-        m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI, 
-            m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
-            m_WeaponUIVariables.m_WeaponNameUI);
+        
 
         UpdateHealthInfo();
     }
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
-            m_CurrentWeapon.FireWeapon(m_WeaponMuzzle);
 
-        if (Input.GetKeyDown(KeyCode.R))
-            StartCoroutine(m_CurrentWeapon.ReloadWeapon());
 
-        if (Input.mouseScrollDelta.y > 0)
-            LastWeapon();
-
-        if (Input.mouseScrollDelta.y < 0)
-            NextWeapon();
     }
 
     void FixedUpdate()
@@ -113,53 +99,7 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Weapon Functions
-    public void AddWeapon(Weapon _newWeapon)
-    {
-    }
-
-    private void NextWeapon()
-    {
-        m_CurrentWeaponIndex++;
-        if (m_CurrentWeaponIndex < m_WeaponsOwned.Length)
-        {
-            m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
-            // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
-            m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
-                m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
-                m_WeaponUIVariables.m_WeaponNameUI);
-        }
-        else
-        {
-            m_CurrentWeaponIndex = 0;
-            m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
-            // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
-            m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
-                m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
-                m_WeaponUIVariables.m_WeaponNameUI);
-        }
-    }
-
-    private void LastWeapon()
-    {
-        m_CurrentWeaponIndex--;
-        if (m_CurrentWeaponIndex < 0)
-        {
-            m_CurrentWeaponIndex = 2;
-            m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
-            // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
-            m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
-                m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
-                m_WeaponUIVariables.m_WeaponNameUI);
-        }
-        else
-        {
-            m_CurrentWeapon = Instantiate(m_WeaponsOwned[m_CurrentWeaponIndex]);
-            // THIS IS UGLY!!!!!!!!!!!!!!!!!!!!!!
-            m_CurrentWeapon.SetupWeaponVariables(m_WeaponUIVariables.m_WeaponReloadUI,
-                m_WeaponUIVariables.m_AmmoUIText, m_WeaponUIVariables.m_AmmoUIBar,
-                m_WeaponUIVariables.m_WeaponNameUI);
-        }
-    }
+    
     #endregion
 
     #region Movement Functions
