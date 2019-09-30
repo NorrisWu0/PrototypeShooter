@@ -33,24 +33,6 @@ public class Player : MonoBehaviour
     float m_MoveHorizontal;
     float m_MoveVertical;
     #endregion
-
-    #region Weapon Setting
-    [Header("Weapon Setting")]
-    [SerializeField] int m_CurrentWeaponIndex = 0;
-    [SerializeField] GameObject m_Projectile;
-    [SerializeField] List<Bullet> m_Bullets;
-    [SerializeField] Transform m_WeaponMuzzle;
-
-    [SerializeField] WeaponUIVariables m_WeaponUIVariables = new WeaponUIVariables();
-    [System.Serializable]
-    struct WeaponUIVariables
-    {
-        public GameObject m_WeaponReloadUI;
-        public GameObject m_AmmoUIText;
-        public GameObject m_AmmoUIBar;
-        public GameObject m_WeaponNameUI;
-    }
-    #endregion
     
     #region Audio Setting - TODO
     #endregion
@@ -66,13 +48,7 @@ public class Player : MonoBehaviour
 
         UpdateHealthInfo();
     }
-
-    private void Update()
-    {
-
-
-    }
-
+    
     void FixedUpdate()
     {
         MovePlayer();
@@ -97,13 +73,8 @@ public class Player : MonoBehaviour
         Destroy(_DeathFXClone, m_DeathFXTimer);
     }
     #endregion
-
-    #region Weapon Functions
     
-    #endregion
-
     #region Movement Functions
-
     private void MovePlayer()
     {
         #region Get movement input

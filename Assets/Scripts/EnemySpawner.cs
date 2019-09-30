@@ -5,19 +5,19 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Spawner Setting")]
-    [SerializeField] private GameObject m_EnemyPrefeb;
     [SerializeField] private bool m_IsSpawing;
     [SerializeField] private float m_SpawnRadius;
-    [Tooltip("How many second to spawn an enemy.")]
     [Range(0, 2)]
     [SerializeField] private float m_SpawnRate;
-    [SerializeField] private float m_SpawnRateTimer;
 
+    private float m_SpawnRateTimer;
     private Vector2 m_SpawnPos;
 
-    [Header("Pool")]
+    [Header("Spawner Setup")]
+    [SerializeField] Transform m_Pool;
     [SerializeField] int m_EnemyIndex;
     [SerializeField] List<Enemy> m_Enemies;
+    [SerializeField] private GameObject m_EnemyPrefeb;
 
     private void Update()
     {
@@ -43,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
                 return i;
 
         GameObject _clone = Instantiate(m_EnemyPrefeb, m_SpawnPos, Quaternion.identity);
-        _clone.transform.parent = gameObject.transform;
+        _clone.transform.parent = m_Pool;
         m_Enemies.Add(_clone.GetComponent<Enemy>());
         return m_Enemies.Count - 1;
     }
