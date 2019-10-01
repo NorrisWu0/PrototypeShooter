@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponSystem : MonoBehaviour
 {
     [Header("Weapon System")]
+    [SerializeField] bool m_AutoFire;
     [Range(0,1)]
     [SerializeField] float m_FireRate;
     float m_FireRateTimer;
@@ -15,6 +16,13 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] int m_ProjectilePoolIndex;
     [SerializeField] List<Projectile> m_ProjectilePool;
     [SerializeField] GameObject m_ProjectilePrefab;
+
+    [Space(10)]
+
+    [SerializeField] AudioSource m_AudioSource;
+    [SerializeField] AudioClip m_ShotAudio;
+
+    [Space(10)]
 
     [SerializeField] WeaponUIVariables m_WeaponUIVariables = new WeaponUIVariables();
     [System.Serializable]
@@ -28,7 +36,9 @@ public class WeaponSystem : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (m_AutoFire)
+            InvokeRepeating("FireWeapon", 0, m_FireRate);
+        else if (Input.GetMouseButton(0))
             FireWeapon();
     }
 
@@ -40,6 +50,8 @@ public class WeaponSystem : MonoBehaviour
             m_ProjectilePool[m_ProjectilePoolIndex].transform.position = m_Muzzle.position;
             m_ProjectilePool[m_ProjectilePoolIndex].transform.rotation = m_Muzzle.rotation;
             m_ProjectilePool[m_ProjectilePoolIndex].gameObject.SetActive(true);
+            
+            m_AudioSource.PlayOneShot(m_ShotAudio);
 
             m_FireRateTimer = Time.time + m_FireRate;
         }

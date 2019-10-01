@@ -1570,8 +1570,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 100
   m_MaxHealth: 100
-  m_LiveCount: 3
-  m_DeathFX: {fileID: 0}
+  m_DeathFX: {fileID: 977638037627857451, guid: 3a260f8969013ae4abe81758589fcec3,
+    type: 3}
   m_HealthUIVariables:
     m_HealthTextUI: {fileID: 8322673250241525113}
     m_HealthBarUI: {fileID: 8322673249690129568}
@@ -1588,6 +1588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ba9cca7f7f7504ab2fbeee0c1ee901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_AutoFire: 0
   m_FireRate: 0.2
   m_Muzzle: {fileID: 8322673250939477351}
   m_Pool: {fileID: 0}
@@ -1595,6 +1596,8 @@ MonoBehaviour:
   m_ProjectilePool: []
   m_ProjectilePrefab: {fileID: 4025346818998850264, guid: 9ad9300fbeeba964bbef1cf038c615bc,
     type: 3}
+  m_AudioSource: {fileID: 8322673250291611934}
+  m_ShotAudio: {fileID: 8300000, guid: 1c9519e042bee704a86b29e25fdb5a84, type: 3}
   m_WeaponUIVariables:
     m_WeaponReloadUI: {fileID: 0}
     m_AmmoUIText: {fileID: 0}

@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     #region Enemy Setting
     [Header("Enemy Setting")]
     [SerializeField] float m_Health;
-    [SerializeField] bool m_IsAlive = true;
+    [SerializeField] float m_MaxHealth;
     
     Rigidbody2D m_RB2D;
     #endregion
@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour
     #region VFX Setting
     [Header("VFX Setting")]
     public GameObject deathFX;
-    [SerializeField] GameObject[] m_Fragments;
 
     #endregion
 
@@ -24,7 +23,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] float m_MoveSpeed;
     [SerializeField] float m_RotateRate;
 
-    private GameObject m_Target;
+    [SerializeField] GameObject m_Target;
     #endregion
 
     #region Testing Area
@@ -32,31 +31,25 @@ public class Enemy : MonoBehaviour
     [SerializeField] float monitor_alpha;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
+        m_MaxHealth = m_Health;
         m_RB2D = GetComponent<Rigidbody2D>();
         m_Target = GameObject.FindGameObjectWithTag("Player").gameObject;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (m_IsAlive)
-        {
-            #region Slowly reduce speed
-            monitor_speed = m_RB2D.velocity;
-            
-
-            #endregion
-        }
+        m_Health = m_MaxHealth;
     }
 
     private void FixedUpdate()
     {
-        if (m_IsAlive && m_Target != null)
+        if (m_Target.activeSelf)
             ChaseTarget();
     }
 
-    #region Enemy Function
+    #region TakeDamage
     public void TakeDamage(float _damage)
     {
         m_Health -= _damage;
@@ -64,7 +57,9 @@ public class Enemy : MonoBehaviour
         if (m_Health <= 0)
             Die();
     }
+    #endregion
 
+    #region Die
     private void Die()
     {
         deathFX.transform.parent = null;
@@ -75,14 +70,16 @@ public class Enemy : MonoBehaviour
     }
     #endregion
 
+    #region DisableExplosionFX
     void DisableExplosionFX()
     {
         deathFX.transform.parent = transform;
         deathFX.transform.localPosition = Vector3.zero;
         deathFX.SetActive(false);
     }
+    #endregion
 
-    #region Movement Function
+    #region ChaseTarget
     private void ChaseTarget()
     {
         #region Rotate enemy towards target
@@ -98,4 +95,14 @@ public class Enemy : MonoBehaviour
     }
     #endregion
 
+    #region OnCollisionEnter2D
+    private void OnCollisionEnter2D (Collision2D _collision)
+    {
+        if (_collision.gameObject.CompareTag("Player"))
+        {
+            _collision.gameObject.GetComponent<Player>().TakeDamage(m_Health);
+            Die();
+        }
+    }
+    #endregion
 }

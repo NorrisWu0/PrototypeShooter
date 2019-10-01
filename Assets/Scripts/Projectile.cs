@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
     #region Projectile Setting
     [Header("Projectile Setting")]
+    [SerializeField] string m_TargetTag;
     [SerializeField] private float m_Damage;
     [SerializeField] private float m_BulletSpeed;
     private Rigidbody2D m_RB2D;
@@ -23,7 +24,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag(m_TargetTag))
         {
             collision.GetComponent<Enemy>().TakeDamage(m_Damage);
 

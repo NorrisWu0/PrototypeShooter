@@ -10,9 +10,8 @@ public class Player : MonoBehaviour
 
     #region Player Setting
     [Header("Player Setting")]
-    [SerializeField] float m_Health = 100;
-    [SerializeField] float m_MaxHealth = 100;
-    [SerializeField] int m_LiveCount = 3;
+    [SerializeField] float m_Health;
+    [SerializeField] float m_MaxHealth;
     [SerializeField] GameObject m_DeathFX;
 
     [SerializeField] HealthUIVariables m_HealthUIVariables = new HealthUIVariables();
@@ -61,7 +60,7 @@ public class Player : MonoBehaviour
         Debug.Log("Player took " + _damage + " damage");
         m_Health -= _damage;
 
-        if (m_Health <= 100)
+        if (m_Health <= 0)
             KillPlayer();
 
         UpdateHealthInfo();
@@ -71,6 +70,8 @@ public class Player : MonoBehaviour
     {
         GameObject _DeathFXClone = Instantiate(m_DeathFX, transform.position, transform.rotation);
         Destroy(_DeathFXClone, m_DeathFXTimer);
+
+        gameObject.SetActive(false);
     }
     #endregion
     
