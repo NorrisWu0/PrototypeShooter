@@ -167,12 +167,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 5
   m_MaxHealth: 0
-  deathFX: {fileID: 1677653903548233174}
   m_MoveSpeed: 50
   m_RotateRate: 1
+  m_Reward: 5
   m_Target: {fileID: 0}
-  monitor_speed: {x: 0, y: 0, z: 0}
-  monitor_alpha: 0
+  m_HealthBar: {fileID: 0}
+  m_HealthBarLerpRate: 0
+  deathVFX: {fileID: 1677653903548233174}
+  m_DeathSFX: {fileID: 8300000, guid: c0d50e33479e926488f66ce1f4d973e1, type: 3}
 --- !u!114 &3200064129978379946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +195,7 @@ MonoBehaviour:
   m_ProjectilePool: []
   m_ProjectilePrefab: {fileID: 4025346818998850264, guid: 9391c427f77d9844abaeb3421cdca0a1,
     type: 3}
-  m_ShotAudio: {fileID: 0}
+  m_WeaponSFX: {fileID: 0}
   m_WeaponUIVariables:
     m_WeaponReloadUI: {fileID: 0}
     m_AmmoUIText: {fileID: 0}
@@ -239,7 +241,7 @@ PrefabInstance:
     - target: {fileID: 977638037627857451, guid: fbddd827d36d5bf4e898986492c08976,
         type: 3}
       propertyPath: m_Name
-      value: ExplosionFX
+      value: Enemy_DeathFX
       objectReference: {fileID: 0}
     - target: {fileID: 977638037627857451, guid: fbddd827d36d5bf4e898986492c08976,
         type: 3}

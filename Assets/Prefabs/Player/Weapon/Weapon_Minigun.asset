@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f45ce6a1204ff42a104c57795b1463, type: 3}
+  m_Name: Weapon_Minigun
+  m_EditorClassIdentifier: 
+  isShotgun: 0
+  fireRate: 0.05
+  disperseRate: 5
+  shotgunPelletsCount: 0
+  weaponSFX: {fileID: 8300000, guid: b17038688547c5448b6325b2cf7828e8, type: 3}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -9,26 +10,20 @@ public class Enemy : MonoBehaviour
     [SerializeField] float m_Health;
     [SerializeField] float m_MaxHealth;
     
-    Rigidbody2D m_RB2D;
-    #endregion
-
-    #region VFX Setting
-    [Header("VFX Setting")]
-    public GameObject deathFX;
-
-    #endregion
-
-    #region Movement Setting
-    [Header("Movement Setting")]
     [SerializeField] float m_MoveSpeed;
     [SerializeField] float m_RotateRate;
 
+    [SerializeField] float m_Reward;
     [SerializeField] GameObject m_Target;
     #endregion
 
-    #region Testing Area
-    [SerializeField] Vector3 monitor_speed;
-    [SerializeField] float monitor_alpha;
+    #region Enemy Setup
+    [Header("Enemy Setup")]
+    [SerializeField] Slider m_HealthBar;
+    [SerializeField] float m_HealthBarLerpRate;
+    public GameObject deathVFX;
+    [SerializeField] AudioClip m_DeathSFX;
+    Rigidbody2D m_RB2D;
     #endregion
 
     private void Awake()
@@ -54,17 +49,34 @@ public class Enemy : MonoBehaviour
     {
         m_Health -= _damage;
 
+        if (m_HealthBar != null)
+            StartCoroutine("UpdateUI");
+
         if (m_Health <= 0)
+        {
+            GameManager.instance.AddScore(m_Reward);
             Die();
+        }
     }
     #endregion
+
+    IEnumerator UpdateUI()
+    {
+        while (m_HealthBar.value != m_Health / m_MaxHealth)
+        {
+            m_HealthBar.value = Mathf.Lerp(m_HealthBar.value, (m_Health / m_MaxHealth), m_HealthBarLerpRate);
+            yield return null;
+        }
+    }
 
     #region Die
     private void Die()
     {
-        deathFX.transform.parent = null;
-        deathFX.SetActive(true);
+        deathVFX.transform.parent = null;
+        deathVFX.SetActive(true);
         Invoke("DisableExplosionFX", 2f);
+
+        AudioManager.instance.enemyAudioSource.PlayOneShot(m_DeathSFX);
 
         gameObject.SetActive(false);
     }
@@ -73,9 +85,9 @@ public class Enemy : MonoBehaviour
     #region DisableExplosionFX
     void DisableExplosionFX()
     {
-        deathFX.transform.parent = transform;
-        deathFX.transform.localPosition = Vector3.zero;
-        deathFX.SetActive(false);
+        deathVFX.transform.parent = transform;
+        deathVFX.transform.localPosition = Vector3.zero;
+        deathVFX.SetActive(false);
     }
     #endregion
 
@@ -94,7 +106,7 @@ public class Enemy : MonoBehaviour
         #endregion
     }
     #endregion
-
+    
     #region OnCollisionEnter2D
     private void OnCollisionEnter2D (Collision2D _collision)
     {

@@ -5,11 +5,12 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [Header("Spawner Setting")]
-    [SerializeField] private bool m_IsSpawing;
-    [SerializeField] private float m_SpawnRadius;
-    [Range(0, 2)]
-    [SerializeField] private float m_SpawnRate;
+    public static bool m_IsSpawing;
+    [SerializeField] float m_SpawnRadius;
+    [Range(0, 2f)]
+    public float spawnRate;
 
+    private Transform m_Target;
     private float m_SpawnRateTimer;
     private Vector2 m_SpawnPos;
 
@@ -19,13 +20,19 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] List<Enemy> m_Enemies;
     [SerializeField] private GameObject m_EnemyPrefeb;
 
+    private void Start()
+    {
+        m_Target = GameObject.FindGameObjectWithTag("Player").transform;
+        m_IsSpawing = true;
+    }
+
     private void Update()
     {
-        if (m_IsSpawing && Time.time > m_SpawnRateTimer)
+        if (m_IsSpawing && Time.time > m_SpawnRateTimer && m_Target != null)
         {
-            m_SpawnPos = GameObject.FindGameObjectWithTag("Player").transform.position;
+            m_SpawnPos = m_Target.position;
             m_SpawnPos += Random.insideUnitCircle.normalized * m_SpawnRadius;
-            m_SpawnRateTimer = Time.time + m_SpawnRate;
+            m_SpawnRateTimer = Time.time + spawnRate;
 
             #region Pooling Enemy
             m_EnemyIndex = NextAvailableEnemy();
@@ -39,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
     int NextAvailableEnemy()
     {
         for (int i = 0; i < m_Enemies.Count; i++)
-            if (!m_Enemies[i].gameObject.activeSelf && !m_Enemies[i].deathFX.activeSelf)
+            if (!m_Enemies[i].gameObject.activeSelf && !m_Enemies[i].deathVFX.activeSelf)
                 return i;
 
         GameObject _clone = Instantiate(m_EnemyPrefeb, m_SpawnPos, Quaternion.identity);
@@ -50,8 +57,11 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(GameObject.FindGameObjectWithTag("Player").transform.position, m_SpawnRadius);
+        if (m_Target != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(m_Target.position, m_SpawnRadius);
+        }
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(m_SpawnPos, 1f);
