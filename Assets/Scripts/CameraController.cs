@@ -6,11 +6,18 @@ public class CameraController : MonoBehaviour
 {
 
     [Header("Camera Setting")]
+    [SerializeField] Transform m_RefPoint;
     [SerializeField] private Transform m_Target;
     [SerializeField] private bool m_EnableLerpToMidPoint = false;
     [SerializeField] private float m_LerpSpeed;
     private Vector3 m_MidPoint;
     [SerializeField] private Vector3 m_Boundary;
+
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
+    }
 
     void FixedUpdate()
     {
@@ -25,6 +32,8 @@ public class CameraController : MonoBehaviour
         if (m_Target != null)
         {
             Vector3 _MousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            m_RefPoint.position = new Vector3(_MousePosition.x, _MousePosition.y, 0);
+
             m_MidPoint = m_Target.position + (_MousePosition - m_Target.position) / 2;
 
             m_MidPoint = new Vector3(Mathf.Clamp(m_MidPoint.x, m_Target.position.x - m_Boundary.x, m_Target.position.x + m_Boundary.x),

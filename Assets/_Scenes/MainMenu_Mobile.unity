@@ -3842,6 +3842,7 @@ MonoBehaviour:
   m_LevelUI: {fileID: 448680124}
   m_BuildIndex: 0
   m_LevelText: {fileID: 1982636470}
+  m_LevelHighScoreText: {fileID: 1353653549}
   m_HangerUI: {fileID: 391295673}
   m_Credits: 0
   m_MaxHealth: 0
@@ -5815,7 +5816,7 @@ GameObject:
   - component: {fileID: 1353653550}
   - component: {fileID: 1353653549}
   m_Layer: 0
-  m_Name: Description
+  m_Name: High Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

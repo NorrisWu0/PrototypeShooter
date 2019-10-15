@@ -23,6 +23,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] float m_ScoreLerpRate;
     [SerializeField] TextMeshProUGUI m_ScoreText;
 
+    [Header("TODO")]
+    [SerializeField] MenuManager m_MenuManager;
+
     void Start()
     {
         m_Player = GameObject.FindWithTag("Player");
@@ -64,8 +67,7 @@ public class GameManager : MonoBehaviour
             {
                 m_FailedText.SetTrigger("Fade");
                 yield return new WaitForSeconds(5f);
-                SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-                SceneManager.LoadSceneAsync(0);
+                m_MenuManager.ExitLevel();
             }
             yield return new WaitForSeconds(0.5f);
         }
@@ -98,10 +100,11 @@ public class GameManager : MonoBehaviour
     {
         m_TargetScore += m_LevelReward;
         m_CompleteText.SetTrigger("Fade");
+        string _levelName = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetInt(_levelName, Mathf.RoundToInt(m_TargetScore));
         PlayerPrefs.SetInt("credits", PlayerPrefs.GetInt("credits") + Mathf.RoundToInt(m_Score));
         yield return new WaitForSeconds(5f);
-        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        SceneManager.LoadSceneAsync(0);
+        m_MenuManager.ExitLevel();
     }
     #endregion
 

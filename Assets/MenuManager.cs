@@ -13,6 +13,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject m_LevelUI;
     [SerializeField] int m_BuildIndex;
     [SerializeField] TextMeshProUGUI m_LevelText;
+    [SerializeField] TextMeshProUGUI m_LevelHighScoreText;
 
     [Header("Hanger Setting")]
     [SerializeField] GameObject m_HangerUI;
@@ -48,6 +49,8 @@ public class MenuManager : MonoBehaviour
 
         if (m_PauseMenuUI != null)
             StartCoroutine(PauseMenu());
+        else
+            Cursor.visible = true;
 
         UpdateDataToUI();
     }
@@ -64,6 +67,8 @@ public class MenuManager : MonoBehaviour
     {
         m_LevelUI.SetActive(true);
         m_HangerUI.SetActive(false);
+
+        SelectLevel(1);
     }
     
     // NEED TO BUILD LEVEL FROM SO!!!!!!!!!!
@@ -71,6 +76,8 @@ public class MenuManager : MonoBehaviour
     {
         m_BuildIndex = _buildIndex;
         m_LevelText.SetText("Level " + m_BuildIndex);
+        int _levelHighScore = PlayerPrefs.GetInt(SceneManager.GetSceneByBuildIndex(m_BuildIndex).name);
+        m_LevelHighScoreText.SetText("High Score: " + _levelHighScore.ToString("00000000"));
     }
 
     public void ShowHanger()
@@ -182,12 +189,14 @@ public class MenuManager : MonoBehaviour
             while (m_IsPaused)
             {
                 Time.timeScale = 0;
+                Cursor.visible = true;
                 m_PauseMenuUI.SetActive(true);
 
                 yield return null;
             }
 
             Time.timeScale = 1;
+            Cursor.visible = false;
             m_PauseMenuUI.SetActive(false);
 
             yield return null;

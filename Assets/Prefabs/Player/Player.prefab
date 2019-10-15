@@ -1540,7 +1540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 0
   maxHealth: 100
-  m_PlayerSpeed: 60
+  m_PlayerSpeed: 40
   m_LeftJoystick: {fileID: 0}
   m_RightJoystick: {fileID: 0}
   m_ReferencePoint: {fileID: 0}

@@ -55,13 +55,18 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         MovePlayer();
-        RotatePlayer();
-        //FollowMouse();
+        //RotatePlayer();
+        FollowMouse();
     }
 
     private void Update()
     {
-        if (m_RightJoystick.GetInputDirection() != Vector3.zero)
+        if (m_RightJoystick != null)
+        {
+            if (m_RightJoystick.GetInputDirection() != Vector3.zero)
+                FireWeapon();
+        }
+        else if (Input.GetMouseButton(0))
             FireWeapon();
     }
 
