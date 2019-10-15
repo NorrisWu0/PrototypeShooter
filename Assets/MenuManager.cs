@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -25,6 +26,15 @@ public class MenuManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI m_FireRateText;
     [SerializeField] TextMeshProUGUI m_DisperseValueText;
 
+    [Header("Pause Menu Setting")]
+    [SerializeField] GameObject m_PauseMenuUI;
+    [SerializeField] bool m_IsPaused;
+
+    [Header("Loading Screen Setting")]
+    [SerializeField] GameObject m_LoadingMaskUI;
+    [SerializeField] TextMeshProUGUI m_NextSceneName;
+    [SerializeField] Slider m_LoadingBar;
+
     [Header("DEBUG SETTING")]
     [SerializeField] int m_InitCredits;
     [SerializeField] float m_InitMaxHealth;
@@ -36,9 +46,20 @@ public class MenuManager : MonoBehaviour
         if (!PlayerPrefs.HasKey("credits"))
             InitializePlayerData();
 
+        if (m_PauseMenuUI != null)
+            StartCoroutine(PauseMenu());
+
         UpdateDataToUI();
     }
-    
+
+    private void Update()
+    {
+        if (m_PauseMenuUI != null)
+            if (Input.GetKeyDown(KeyCode.Escape))
+                m_IsPaused = !m_IsPaused;
+    }
+
+    #region Main Menu
     public void ShowLevels()
     {
         m_LevelUI.SetActive(true);
@@ -50,15 +71,6 @@ public class MenuManager : MonoBehaviour
     {
         m_BuildIndex = _buildIndex;
         m_LevelText.SetText("Level " + m_BuildIndex);
-    }
-
-    public void StartLevel()
-    {
-        if (m_BuildIndex != 0)
-        {
-            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-            SceneManager.LoadSceneAsync(m_BuildIndex);
-        }
     }
 
     public void ShowHanger()
@@ -73,6 +85,7 @@ public class MenuManager : MonoBehaviour
         {
             m_Credits -= _cost;
             m_MaxHealth *= 1.1f;
+            m_MaxHealth = Mathf.Clamp(m_MaxHealth, 20, 300);
             m_CreditText.SetText("Credits: $" + m_Credits.ToString());
             m_MaxHealthText.SetText("Max Health: " + m_MaxHealth.ToString(".00"));
         }
@@ -85,6 +98,8 @@ public class MenuManager : MonoBehaviour
             m_Credits -= _cost;
             m_FireRate *= 0.9f;
             m_DisperseValue *= 1.05f;
+            m_FireRate = Mathf.Clamp(m_FireRate, 0.05f, 1.4f);
+            m_DisperseValue = Mathf.Clamp(m_DisperseValue, 1f, 5f);
             m_CreditText.SetText("Credits: $" + m_Credits.ToString());
             m_FireRateText.SetText("Fire Rate: " + Mathf.RoundToInt(60 / m_FireRate).ToString() + " RPM");
             m_DisperseValueText.SetText("Dispersion: " + m_DisperseValue.ToString(".00") + " Degree");
@@ -96,6 +111,7 @@ public class MenuManager : MonoBehaviour
         {
             m_Credits -= _cost;
             m_DisperseValue *= 0.9f;
+            m_DisperseValue = Mathf.Clamp(m_DisperseValue, 1f, 5f);
             m_CreditText.SetText("Credits: $" + m_Credits.ToString());
             m_DisperseValueText.SetText("Dispersion: " + m_DisperseValue.ToString(".00") + " Degree");
         }
@@ -136,21 +152,90 @@ public class MenuManager : MonoBehaviour
 
     void UpdateDataToUI()
     {
-        PlayerData = PlayerPersistence.LoadData();
+        if (m_LevelUI != null && m_HangerUI != null)
+        {
+            PlayerData = PlayerPersistence.LoadData();
 
-        m_Credits = PlayerData.credits;
-        m_MaxHealth = PlayerData.maxHealth;
-        m_FireRate = PlayerData.fireRate;
-        m_DisperseValue = PlayerData.disperseValue;
+            m_Credits = PlayerData.credits;
+            m_MaxHealth = PlayerData.maxHealth;
+            m_FireRate = PlayerData.fireRate;
+            m_DisperseValue = PlayerData.disperseValue;
 
-        m_CreditText.SetText("Credits: $" + m_Credits.ToString());
-        m_MaxHealthText.SetText("Max Health: " + m_MaxHealth.ToString(".00"));
-        m_FireRateText.SetText("Fire Rate: " + Mathf.RoundToInt(60 / m_FireRate).ToString() + " RPM");
-        m_DisperseValueText.SetText("Dispersion: " + m_DisperseValue.ToString(".00") + " Degree");
+            m_CreditText.SetText("Credits: $" + m_Credits.ToString());
+            m_MaxHealthText.SetText("Max Health: " + m_MaxHealth.ToString(".00"));
+            m_FireRateText.SetText("Fire Rate: " + Mathf.RoundToInt(60 / m_FireRate).ToString() + " RPM");
+            m_DisperseValueText.SetText("Dispersion: " + m_DisperseValue.ToString(".00") + " Degree");
+        }
     }
 
     public void ExitGame()
     {
         Application.Quit();
     }
+    #endregion
+
+    #region Pause Menu
+    IEnumerator PauseMenu()
+    {
+        while (true)
+        {
+            while (m_IsPaused)
+            {
+                Time.timeScale = 0;
+                m_PauseMenuUI.SetActive(true);
+
+                yield return null;
+            }
+
+            Time.timeScale = 1;
+            m_PauseMenuUI.SetActive(false);
+
+            yield return null;
+        }
+    }
+
+    public void TogglePauseState(bool _state)
+    {
+        m_IsPaused = _state;
+    }
+
+    public void RestartLevel()
+    {
+        m_BuildIndex = SceneManager.GetActiveScene().buildIndex;
+        StartLevel();
+    }
+
+    public void ExitLevel()
+    {
+        m_BuildIndex = 0;
+        StartLevel();
+    }
+    #endregion
+
+    #region Loading
+    public void StartLevel()
+    {
+        StartCoroutine(LoadingLevel());
+    }
+
+    IEnumerator LoadingLevel()
+    {
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+        AsyncOperation _operation = SceneManager.LoadSceneAsync(m_BuildIndex);
+
+        m_NextSceneName.SetText("Loading " + (SceneManager.GetSceneByBuildIndex(m_BuildIndex).name) + "...");
+        m_LoadingMaskUI.SetActive(true);
+        
+
+        while (!_operation.isDone)
+        {
+            float _progress = Mathf.Clamp01(_operation.progress / 0.9f);
+            
+            m_LoadingBar.value = _progress; 
+
+            yield return null;
+        }
+    }
+    #endregion
+
 }

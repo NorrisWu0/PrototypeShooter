@@ -35,7 +35,6 @@ public class Player : MonoBehaviour
     float m_DeathFXTimer = 1f;
     Rigidbody2D m_RB2D;
     #endregion
-
     
     private void OnEnable()
     {
@@ -154,8 +153,8 @@ public class Player : MonoBehaviour
     #endregion
 
     #region Simplified Weapon System
-    [Header("Weapon System")]
-    [Range(0.05f, 3)]
+    [Header("Simplified Weapon System")]
+    [Range(0.05f, 1.4f)]
     public float fireRate;
     [Range(1, 5)]
     public float disperseRate;
