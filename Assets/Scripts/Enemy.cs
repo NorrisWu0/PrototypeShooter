@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
 
         if (m_Health <= 0)
         {
-            GameManager.instance.AddScore(m_Reward);
+            LevelManager.instance.AddScore(m_Reward);
             Die();
         }
     }

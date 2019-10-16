@@ -117,7 +117,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 3
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -142,7 +142,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -150,9 +150,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.007823944, y: 1.985774}
-      - {x: 2.001852, y: -2.0020323}
-      - {x: -2.0033855, y: -1.9938571}
+    - - {x: -0.001953125, y: 0.5}
+      - {x: -0.005859375, y: 0.49804688}
+      - {x: -0.5, y: -0.4921875}
+      - {x: -0.5, y: -0.5}
+      - {x: 0.5, y: -0.5}
+      - {x: 0.5, y: -0.4921875}
+      - {x: 0.00390625, y: 0.5}
+    - - {x: 0, y: 0.22851562}
+      - {x: 0.30273438, y: -0.37695312}
+      - {x: -0.30273438, y: -0.37890625}
+      - {x: -0.30078125, y: -0.37890625}
 --- !u!114 &5761974222048076003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,14 +175,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Health: 5
   m_MaxHealth: 0
-  m_MoveSpeed: 50
+  m_MoveSpeed: 21
   m_RotateRate: 1
-  m_Reward: 5
+  m_Reward: 10
   m_Target: {fileID: 0}
   m_HealthBar: {fileID: 0}
   m_HealthBarLerpRate: 0
   deathVFX: {fileID: 1677653903548233174}
-  m_DeathSFX: {fileID: 8300000, guid: c0d50e33479e926488f66ce1f4d973e1, type: 3}
+  m_DeathSFX: {fileID: 8300000, guid: 7d2c0358105134b4ba8b8234f0ccce2e, type: 3}
 --- !u!114 &3200064129978379946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,19 +196,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AutoFire: 1
+  m_IsRailgun: 0
+  m_IsShotgun: 0
   m_FireRate: 1
+  m_DisperseRate: 0
+  m_ShotgunPelletsCount: 0
+  m_WeaponSFX: {fileID: 0}
+  m_WeaponryIndex: 0
+  m_Weaponry: []
+  m_WeaponNameText: {fileID: 0}
   m_Muzzle: {fileID: 740888847153717574}
   m_Pool: {fileID: 0}
-  m_ProjectilePoolIndex: 0
+  m_PoolIndex: 0
   m_ProjectilePool: []
+  m_RailgunPool: []
   m_ProjectilePrefab: {fileID: 4025346818998850264, guid: 9391c427f77d9844abaeb3421cdca0a1,
     type: 3}
-  m_WeaponSFX: {fileID: 0}
-  m_WeaponUIVariables:
-    m_WeaponReloadUI: {fileID: 0}
-    m_AmmoUIText: {fileID: 0}
-    m_AmmoUIBar: {fileID: 0}
-    m_WeaponNameUI: {fileID: 0}
 --- !u!1 &5931892326991573922
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,6 +249,71 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5761974222048076002}
     m_Modifications:
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.65882355
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 0.41960788
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.x.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.x.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.y.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.y.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.z.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.z.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.x.maxCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.y.maxCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8823431385515822189, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: VelocityModule.z.maxCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8971206322934044556, guid: fbddd827d36d5bf4e898986492c08976,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 977638037627857451, guid: fbddd827d36d5bf4e898986492c08976,
         type: 3}
       propertyPath: m_Name

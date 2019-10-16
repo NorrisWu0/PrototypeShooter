@@ -4,13 +4,6 @@ using UnityEngine;
 
 public static class PlayerPersistence
 {
-    public static void SaveData(Player _player)
-    {
-        PlayerPrefs.SetFloat("maxHealth", _player.maxHealth);
-        PlayerPrefs.SetFloat("fireRate", _player.fireRate);
-        PlayerPrefs.SetFloat("disperseRate", _player.disperseRate);
-    }
-
     public static PlayerData LoadData()
     {
         int _credit = PlayerPrefs.GetInt("credits");

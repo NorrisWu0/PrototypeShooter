@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f45ce6a1204ff42a104c57795b1463, type: 3}
   m_Name: Weapon_Shotgun
   m_EditorClassIdentifier: 
-  isShotgun: 1
-  fireRate: 0.8
+  name: AS-09 Shotgun
+  isRailgun: 0
+  projectilePrefab: {fileID: 4025346818998850264, guid: 9ad9300fbeeba964bbef1cf038c615bc,
+    type: 3}
+  fireRate: 0.6
   disperseRate: 20
-  shotgunPelletsCount: 5
-  weaponSFX: {fileID: 8300000, guid: b17038688547c5448b6325b2cf7828e8, type: 3}
+  isShotgun: 1
+  shotgunPelletsCount: 12
+  weaponSFX: {fileID: 8300000, guid: 709b40fd7cc3cc34a996b9fe2022f14e, type: 3}

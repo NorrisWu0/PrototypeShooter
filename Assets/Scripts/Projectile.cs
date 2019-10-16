@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour
 {
     #region Projectile Setting
     [Header("Projectile Setting")]
+    [SerializeField] bool m_IsAP;
+    [SerializeField] TrailRenderer m_Trail;
     [SerializeField] string m_TargetTag;
     [SerializeField] private float m_Damage;
     [SerializeField] private float m_BulletSpeed;
@@ -26,16 +28,17 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag(m_TargetTag))
         {
+            Debug.Log("Hit");
             collision.GetComponent<Enemy>().TakeDamage(m_Damage);
-
-            gameObject.SetActive(false);
-            transform.localPosition = Vector3.zero;
+            if (!m_IsAP)
+                gameObject.SetActive(false);
         }
     }
 
     private void OnBecameInvisible()
     {
+        if (m_Trail != null)
+            m_Trail.Clear();
         gameObject.SetActive(false);
-        transform.localPosition = Vector3.zero;        
     }
 }

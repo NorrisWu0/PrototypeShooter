@@ -6,11 +6,11 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("Spawner Setting")]
     public static bool m_IsSpawing;
+    [SerializeField] Transform m_Target;
     [SerializeField] float m_SpawnRadius;
     [Range(0, 2f)]
     public float spawnRate;
 
-    private Transform m_Target;
     private float m_SpawnRateTimer;
     private Vector2 m_SpawnPos;
 
@@ -18,7 +18,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] Transform m_Pool;
     [SerializeField] int m_EnemyIndex;
     [SerializeField] List<Enemy> m_Enemies;
-    [SerializeField] private GameObject m_EnemyPrefeb;
+    [SerializeField] GameObject m_EnemyPrefeb;
 
     private void Start()
     {

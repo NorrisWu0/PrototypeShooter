@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class WeaponSystem : MonoBehaviour
 {
     [Header("Weapon System")]
     [SerializeField] bool m_AutoFire;
+    [SerializeField] bool m_IsRailgun;
     [SerializeField] bool m_IsShotgun;
     [Range(0, 2)]
     [SerializeField] float m_FireRate;
@@ -20,22 +22,19 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] Weapon[] m_Weaponry;
 
     [Header("Weapon Setup")]
+    [SerializeField] TextMeshProUGUI m_WeaponNameText;
     [SerializeField] Transform m_Muzzle;
     [SerializeField] Transform m_Pool;
-    [SerializeField] int m_ProjectilePoolIndex;
+    [SerializeField] int m_PoolIndex;
     [SerializeField] List<Projectile> m_ProjectilePool;
+    [SerializeField] List<Projectile> m_RailgunPool;
     [SerializeField] GameObject m_ProjectilePrefab;
 
-    [SerializeField] WeaponUIVariables m_WeaponUIVariables = new WeaponUIVariables();
-    [System.Serializable]
-    struct WeaponUIVariables
+    private void Start()
     {
-        public GameObject m_WeaponReloadUI;
-        public GameObject m_AmmoUIText;
-        public GameObject m_AmmoUIBar;
-        public GameObject m_WeaponNameUI;
+        SetupWeapon();
     }
-    
+
     void Update()
     {
         if (Input.mouseScrollDelta.y > 0)
@@ -52,12 +51,19 @@ public class WeaponSystem : MonoBehaviour
     void SwitchWeapon(int _value)
     {
         m_WeaponryIndex = Mathf.Abs(m_WeaponryIndex + _value) % m_Weaponry.Length;
+        SetupWeapon();
+    }
 
+    void SetupWeapon()
+    {
         #region Fetch Weapon Value
         m_FireRate = m_Weaponry[m_WeaponryIndex].fireRate;
         m_DisperseRate = m_Weaponry[m_WeaponryIndex].disperseRate;
         m_WeaponSFX = m_Weaponry[m_WeaponryIndex].weaponSFX;
+        m_ProjectilePrefab = m_Weaponry[m_WeaponryIndex].projectilePrefab;
+        #endregion
 
+        #region Check if is shotgun
         if (m_Weaponry[m_WeaponryIndex].isShotgun)
         {
             m_IsShotgun = m_Weaponry[m_WeaponryIndex].isShotgun;
@@ -65,8 +71,21 @@ public class WeaponSystem : MonoBehaviour
         }
         else
             m_IsShotgun = false;
-
         #endregion
+
+        #region Check if is railgun
+        if (m_Weaponry[m_WeaponryIndex].isRailgun)
+            m_IsRailgun = true;
+        else
+            m_IsRailgun = false;
+        #endregion
+
+        UpdateWeaponUI();
+    }
+    
+    void UpdateWeaponUI()
+    {
+        m_WeaponNameText.SetText(m_Weaponry[m_WeaponryIndex].name);
     }
 
     void FireWeapon()
@@ -77,44 +96,49 @@ public class WeaponSystem : MonoBehaviour
             {
                 for (int i = 0; i < m_ShotgunPelletsCount; i++)
                 {
-                    m_ProjectilePoolIndex = NextAvaliableProjectile();
-                    m_ProjectilePool[m_ProjectilePoolIndex].transform.position = m_Muzzle.position;
-                    m_ProjectilePool[m_ProjectilePoolIndex].transform.rotation = m_Muzzle.rotation;
-                    m_ProjectilePool[m_ProjectilePoolIndex].transform.Rotate(new Vector3(0, 0, Random.Range(-m_DisperseRate, m_DisperseRate)));
-                    m_ProjectilePool[m_ProjectilePoolIndex].gameObject.SetActive(true);
+                    m_PoolIndex = NextAvaliableProjectile(m_ProjectilePool);
+                    m_ProjectilePool[m_PoolIndex].transform.position = m_Muzzle.position;
+                    m_ProjectilePool[m_PoolIndex].transform.rotation = m_Muzzle.rotation;
+                    m_ProjectilePool[m_PoolIndex].transform.Rotate(new Vector3(0, 0, Random.Range(-m_DisperseRate, m_DisperseRate)));
+                    m_ProjectilePool[m_PoolIndex].gameObject.SetActive(true);
 
                 }
-
-                AudioManager.instance.weaponAudioSource.PlayOneShot(m_WeaponSFX);
+            }
+            else if (m_IsRailgun)
+            {
+                m_PoolIndex = NextAvaliableProjectile(m_RailgunPool);
+                m_RailgunPool[m_PoolIndex].transform.position = m_Muzzle.position;
+                m_RailgunPool[m_PoolIndex].transform.rotation = m_Muzzle.rotation;
+                m_RailgunPool[m_PoolIndex].gameObject.SetActive(true);
             }
             else
             {
-                m_ProjectilePoolIndex = NextAvaliableProjectile();
-                m_ProjectilePool[m_ProjectilePoolIndex].transform.position = m_Muzzle.position;
-                m_ProjectilePool[m_ProjectilePoolIndex].transform.rotation = m_Muzzle.rotation;
+                m_PoolIndex = NextAvaliableProjectile(m_ProjectilePool);
+                m_ProjectilePool[m_PoolIndex].transform.position = m_Muzzle.position;
+                m_ProjectilePool[m_PoolIndex].transform.rotation = m_Muzzle.rotation;
 
                 #region Disperse Projectile
-                m_ProjectilePool[m_ProjectilePoolIndex].transform.Rotate(new Vector3(0, 0, Random.Range(-m_DisperseRate, m_DisperseRate)));
+                m_ProjectilePool[m_PoolIndex].transform.Rotate(new Vector3(0, 0, Random.Range(-m_DisperseRate, m_DisperseRate)));
                 #endregion
 
-                m_ProjectilePool[m_ProjectilePoolIndex].gameObject.SetActive(true);
-            
-                AudioManager.instance.weaponAudioSource.PlayOneShot(m_WeaponSFX);
+                m_ProjectilePool[m_PoolIndex].gameObject.SetActive(true);
             }
+
+            AudioManager.instance.weaponAudioSource.PlayOneShot(m_WeaponSFX);
             m_FireRateTimer = Time.time + m_FireRate;
         }
     }
 
-    int NextAvaliableProjectile()
+    int NextAvaliableProjectile(List<Projectile> _pool)
     {
-        for (int i = 0; i < m_ProjectilePool.Count; i++)
-            if (!m_ProjectilePool[i].gameObject.activeSelf)
+        for (int i = 0; i < _pool.Count; i++)
+            if (!_pool[i].gameObject.activeSelf)
                 return i;
 
         GameObject _projectileClone = Instantiate(m_ProjectilePrefab, m_Muzzle.position, m_Muzzle.rotation);
         _projectileClone.transform.parent = m_Pool;
-        m_ProjectilePool.Add(_projectileClone.GetComponent<Projectile>());
-        return m_ProjectilePool.Count - 1;
+        _pool.Add(_projectileClone.GetComponent<Projectile>());
+        return _pool.Count - 1;
     }
 
 }
