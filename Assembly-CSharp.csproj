@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\AudioManager.cs" />
+    <Compile Include="Assets\HighScoreTable.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickPlayerExample.cs" />
     <Compile Include="Assets\Joystick Pack\Examples\JoystickSetterExample.cs" />
     <Compile Include="Assets\Joystick Pack\Scripts\Base\Joystick.cs" />
@@ -70,12 +71,19 @@
     <Compile Include="Assets\Joystick Pack\Scripts\Joysticks\VariableJoystick.cs" />
     <Compile Include="Assets\LevelManager.cs" />
     <Compile Include="Assets\MenuManager.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\BWEffect.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\DiyEffect__FullOnly.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\ShaderEffect_BleedingColors.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\ShaderEffect_CorruptedVram.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\ShaderEffect_CRT.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\ShaderEffect_Scanner.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\ShaderEffect_Tint.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\ShaderEffect_Unsync.cs" />
+    <Compile Include="Assets\Realistic Glitches Lite\Assets\Scripts\ShaderToTexture.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\PlayerData.cs" />
-    <Compile Include="Assets\Scripts\PlayerPersistence.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
     <Compile Include="Assets\Scripts\WaypointPointer.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
@@ -91,24 +99,33 @@
     <Compile Include="Assets\TouchJoysticks\Scripts\SingleJoystick.cs" />
     <Compile Include="Assets\TouchJoysticks\Scripts\SingleJoystickPlayerController.cs" />
     <Compile Include="Assets\TouchJoysticks\Scripts\SingleJoystickTouchController.cs" />
+    <None Include="Assets\Realistic Glitches Lite\Assets\Shaders\Distortion2D__FullOnly.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\Realistic Glitches Lite\Assets\Shaders\Scanlines.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\Realistic Glitches Lite\Documentation\Realistic Glitches.txt" />
+    <None Include="Assets\Realistic Glitches Lite\Assets\Shaders\BleedingColors.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\Realistic Glitches Lite\Assets\Shaders\Shift.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\Realistic Glitches Lite\Assets\Shaders\VUnsync.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\Realistic Glitches Lite\Assets\Shaders\Tint.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\Realistic Glitches Lite\Assets\Shaders\Distortion.shader" />
     <None Include="Assets\Audios\LoopAndMusicFree\_readme\readme_jp_ver1.4.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\Realistic Glitches Lite\Assets\Shaders\BWDiffuse.shader" />
     <None Include="Assets\Audios\LoopAndMusicFree\_readme\readme_en_ver1.4.txt" />
     <Reference Include="Cinemachine">
       <HintPath>C:/Users/User/Documents/GitHub/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
@@ -122,6 +139,12 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/User/Documents/GitHub/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>C:/Users/User/Documents/GitHub/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>C:/Users/User/Documents/GitHub/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="com.unity.cinemachine.editor">
       <HintPath>C:/Users/User/Documents/GitHub/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
@@ -130,12 +153,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>C:/Users/User/Documents/GitHub/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>C:/Users/User/Documents/GitHub/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.9f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

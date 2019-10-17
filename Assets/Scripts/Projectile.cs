@@ -28,7 +28,6 @@ public class Projectile : MonoBehaviour
     {
         if (collision.CompareTag(m_TargetTag))
         {
-            Debug.Log("Hit");
             collision.GetComponent<Enemy>().TakeDamage(m_Damage);
             if (!m_IsAP)
                 gameObject.SetActive(false);

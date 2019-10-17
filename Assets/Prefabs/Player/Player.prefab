@@ -1439,7 +1439,7 @@ GameObject:
   - component: {fileID: 8322673250291611934}
   - component: {fileID: 8322673250291611933}
   - component: {fileID: 5189827778994639363}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1676,7 +1676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a49df06f060d341b53ffca0481633e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAlive: 0
+  isAlive: 1
   m_Health: 0
   maxHealth: 100
   m_PlayerSpeed: 20

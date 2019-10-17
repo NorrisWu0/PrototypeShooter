@@ -37,15 +37,19 @@ public class WeaponSystem : MonoBehaviour
 
     void Update()
     {
-        if (Input.mouseScrollDelta.y > 0)
-            SwitchWeapon(-1);
-        else if (Input.mouseScrollDelta.y < 0)
-            SwitchWeapon(1);
+        if (Time.timeScale != 0)
+        {
+            if (Input.mouseScrollDelta.y > 0)
+                SwitchWeapon(-1);
+            else if (Input.mouseScrollDelta.y < 0)
+                SwitchWeapon(1);
 
-        if (m_AutoFire)
-            InvokeRepeating("FireWeapon", 0, m_FireRate);
-        else if (Input.GetMouseButton(0))
-            FireWeapon();
+        
+            if (m_AutoFire)
+                InvokeRepeating("FireWeapon", 0, m_FireRate);
+            else if (Input.GetMouseButton(0))
+                FireWeapon();
+        }
     }
 
     void SwitchWeapon(int _value)

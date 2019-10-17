@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     [Header("Player Setup")]
     [SerializeField] GameObject m_DeathVFX;
     [SerializeField] AudioClip m_DeathSFX;
+
     [SerializeField] HealthUIVariables m_HealthUIVariables = new HealthUIVariables();
     [System.Serializable]
     struct HealthUIVariables
@@ -31,15 +32,16 @@ public class Player : MonoBehaviour
     float m_DeathFXTimer = 1f;
     Rigidbody2D m_RB2D;
     #endregion
-    
+
     void Start()
     {
         isAlive = true;
         m_Health = maxHealth;
         m_RB2D = GetComponent<Rigidbody2D>();
+        
         StartCoroutine("UpdateHealthUI");
     }
-    
+
     void FixedUpdate()
     {
         MovePlayer();
@@ -56,7 +58,7 @@ public class Player : MonoBehaviour
             Die();
 
         if (gameObject.activeSelf)
-            StartCoroutine("UpdateHealthUI");
+            StartCoroutine(UpdateHealthUI());
     }
     #endregion
 
@@ -67,13 +69,13 @@ public class Player : MonoBehaviour
 
         GameObject _DeathFXClone = Instantiate(m_DeathVFX, transform.position, transform.rotation);
         Destroy(_DeathFXClone, m_DeathFXTimer);
-
+        
         EnemySpawner.m_IsSpawing = false;
         AudioManager.instance.playerAudioSource.PlayOneShot(m_DeathSFX);
         gameObject.SetActive(false);
     }
     #endregion
-    
+
     #region Move Player - Mobile and Input Axis
     private void MovePlayer()
     {
@@ -103,6 +105,16 @@ public class Player : MonoBehaviour
         while (m_HealthUIVariables.m_HealthBar.value != m_Health / maxHealth && gameObject.activeSelf)
         {
             m_HealthUIVariables.m_HealthText.SetText("Health: " + (m_Health / maxHealth).ToString("00%"));
+
+            #region Lerp Healthbar Color - NOT WORKING
+            //ColorBlock _colors = m_HealthUIVariables.m_HealthBar.colors;
+            //_colors.normalColor = Color.Lerp(Color.red, Color.white, 0.3f);
+
+            //Debug.Log(_colors.normalColor);
+
+            //m_HealthUIVariables.m_HealthBar.colors = _colors;
+            #endregion
+
             m_HealthUIVariables.m_HealthBar.value = Mathf.Lerp(m_HealthUIVariables.m_HealthBar.value, (m_Health / maxHealth), m_HealthUIVariables.m_HealthBarLerpRate);
 
             yield return null;

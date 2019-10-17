@@ -7,8 +7,6 @@ using TMPro;
 
 public class MenuManager : MonoBehaviour
 {
-    public PlayerData PlayerData;
-
     [Header("Pause Menu Setting")]
     [SerializeField] GameObject m_PauseMenuUI;
     [SerializeField] bool m_IsPaused;
@@ -23,7 +21,10 @@ public class MenuManager : MonoBehaviour
         if (m_PauseMenuUI != null)
             StartCoroutine(PauseMenu());
         else
+        {
             Cursor.visible = true;
+            HighScoreTable.instance.SetupScoreboard();
+        }
     }
 
     private void Update()
@@ -71,6 +72,7 @@ public class MenuManager : MonoBehaviour
 
     IEnumerator LoadingLevel(string _sceneName)
     {
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         AsyncOperation _operation = SceneManager.LoadSceneAsync(_sceneName);
 
         m_NextSceneName.SetText("Loading " + _sceneName + "...");

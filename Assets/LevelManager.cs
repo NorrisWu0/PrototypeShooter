@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Cinemachine;
 
 public class LevelManager : MonoBehaviour
 {
@@ -25,6 +26,11 @@ public class LevelManager : MonoBehaviour
 
     [Header("TODO")]
     [SerializeField] MenuManager m_MenuManager;
+    [SerializeField] CinemachineVirtualCamera m_VirtualCamera;
+    [SerializeField] float m_Amplitude;
+    [SerializeField] float m_Frequency;
+
+    private CinemachineBasicMultiChannelPerlin m_VCameraNoise;
 
     void Start()
     {
@@ -34,6 +40,8 @@ public class LevelManager : MonoBehaviour
         if (instance == null)
             instance = this;
 
+        m_VCameraNoise = m_VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+
         StartCoroutine(CheckPlayerStatus());
         StartCoroutine(UpdateScoreUI());
         StartCoroutine(StartTimer());
@@ -41,7 +49,6 @@ public class LevelManager : MonoBehaviour
 
     public void AddScore(float _score)
     {
-        Debug.Log(_score);
         m_TargetScore += _score;
     }
 
@@ -67,9 +74,24 @@ public class LevelManager : MonoBehaviour
             yield return null;
         }
 
+        StartCoroutine(ShakeCamera());
         m_FailedText.SetTrigger("Fade");
+        if (m_TargetScore != 0)
+            HighScoreTable.instance.AddEntry(Mathf.RoundToInt(m_TargetScore), "TODO");
     }
     #endregion
+
+    IEnumerator ShakeCamera()
+    {
+        float _t = 1;
+        while (_t >= 0)
+        {
+            m_VCameraNoise.m_AmplitudeGain = Mathf.Lerp(0, m_Amplitude, _t);
+            m_VCameraNoise.m_FrequencyGain = Mathf.Lerp(0, m_Frequency, _t);
+            _t -= Time.deltaTime;
+            yield return null;
+        }
+    }
 
     #region Timer
     IEnumerator StartTimer()
