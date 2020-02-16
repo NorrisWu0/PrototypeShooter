@@ -93,10 +93,8 @@
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\MenuManager.cs" />
-    <Compile Include="Assets\Scripts\SceneManager.cs" />
     <Compile Include="Assets\Scripts\Utility\Enemy.cs" />
     <Compile Include="Assets\Scripts\Utility\EnemySpawner.cs" />
-    <Compile Include="Assets\Scripts\Utility\HighScoreTable.cs" />
     <Compile Include="Assets\Scripts\Utility\Player.cs" />
     <Compile Include="Assets\Scripts\Utility\Projectile.cs" />
     <Compile Include="Assets\Scripts\Utility\WaypointPointer.cs" />

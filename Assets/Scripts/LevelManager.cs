@@ -76,8 +76,6 @@ public class LevelManager : MonoBehaviour
 
         StartCoroutine(ShakeCamera());
         m_FailedText.SetTrigger("Fade");
-        if (m_TargetScore != 0)
-            HighScoreTable.instance.AddEntry(Mathf.RoundToInt(m_TargetScore), "TODO");
     }
     #endregion
 

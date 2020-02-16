@@ -23,7 +23,6 @@ public class MenuManager : MonoBehaviour
         else
         {
             Cursor.visible = true;
-            HighScoreTable.instance.SetupScoreboard();
         }
     }
 
