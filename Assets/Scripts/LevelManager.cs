@@ -26,9 +26,6 @@ namespace GeoShot
 
         [Header("TODO")]
         [SerializeField] MenuManager m_MenuManager;
-        [SerializeField] CinemachineVirtualCamera m_VirtualCamera;
-        [SerializeField] float m_Amplitude;
-        [SerializeField] float m_Frequency;
 
         private CinemachineBasicMultiChannelPerlin m_VCameraNoise;
 
@@ -40,7 +37,6 @@ namespace GeoShot
             if (instance == null)
                 instance = this;
 
-            m_VCameraNoise = m_VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
 
             StartCoroutine(UpdateScoreUI());
             StartCoroutine(StartTimer());
@@ -64,19 +60,7 @@ namespace GeoShot
                 yield return null;
             }
         }
-
-        IEnumerator ShakeCamera()
-        {
-            float _t = 1;
-            while (_t >= 0)
-            {
-                m_VCameraNoise.m_AmplitudeGain = Mathf.Lerp(0, m_Amplitude, _t);
-                m_VCameraNoise.m_FrequencyGain = Mathf.Lerp(0, m_Frequency, _t);
-                _t -= Time.deltaTime;
-                yield return null;
-            }
-        }
-
+        
         #region Timer
         IEnumerator StartTimer()
         {

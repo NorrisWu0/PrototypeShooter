@@ -17,8 +17,6 @@ namespace GeoShot
         {
             m_IsAlive = true;
             m_RB2D = GetComponent<Rigidbody2D>();
-        
-            StartCoroutine("UpdateHealthUI");
         }
 
         void FixedUpdate()
