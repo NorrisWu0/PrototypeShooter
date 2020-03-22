@@ -89,14 +89,18 @@
     <Compile Include="Assets\External\TouchJoysticks\Scripts\SingleJoystick.cs" />
     <Compile Include="Assets\External\TouchJoysticks\Scripts\SingleJoystickPlayerController.cs" />
     <Compile Include="Assets\External\TouchJoysticks\Scripts\SingleJoystickTouchController.cs" />
+    <Compile Include="Assets\Prefabs\UI\HealthUI\HealthUI.cs" />
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\MenuManager.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\Utility\Enemy.cs" />
     <Compile Include="Assets\Scripts\Utility\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\Utility\Player.cs" />
     <Compile Include="Assets\Scripts\Utility\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
+    <Compile Include="Assets\Scripts\Utility\Unit.cs" />
     <Compile Include="Assets\Scripts\Utility\WaypointPointer.cs" />
     <Compile Include="Assets\Scripts\Utility\Weapon.cs" />
     <Compile Include="Assets\Scripts\Utility\WeaponSystem.cs" />
@@ -129,73 +133,73 @@
     <None Include="Assets\Resources\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Resources\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Cinemachine">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-weaver.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.multiplayer-weaver.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.XR.LegacyInputHelpers">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.SpatialTracking">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.cinemachine.editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.XR.LegacyInputHelpers">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="com.unity.multiplayer-hlapi.Runtime">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/ScriptAssemblies/com.unity.multiplayer-hlapi.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -375,13 +379,13 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.XRModule.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/PackageCache/com.unity.analytics@3.3.5/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/ProjectCopyright-GeometryWar/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/User/Documents/GitHub/_Game Development/Unity Projects/ProjectCopyright-GeometryWar/Library/PackageCache/com.unity.analytics@3.3.5/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.1f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+namespace GeoShot
+{
 public class WeaponSystem : MonoBehaviour
 {
     [Header("Weapon System")]
@@ -145,4 +147,5 @@ public class WeaponSystem : MonoBehaviour
         return _pool.Count - 1;
     }
 
+}
 }
