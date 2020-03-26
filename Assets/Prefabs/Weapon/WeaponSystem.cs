@@ -7,6 +7,8 @@ namespace GeoShot
 {
 public class WeaponSystem : MonoBehaviour
 {
+    
+
     [Header("Weapon System")]
     [SerializeField] bool m_AutoFire;
     [SerializeField] bool m_IsRailgun;

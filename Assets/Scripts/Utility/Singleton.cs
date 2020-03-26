@@ -1,4 +1,4 @@
-﻿namespace FMT.Util
+﻿namespace GeoShot
 {
     using UnityEngine;
 

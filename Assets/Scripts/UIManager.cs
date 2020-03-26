@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using FMT.Util;
 
 namespace GeoShot
 {
@@ -7,9 +6,6 @@ namespace GeoShot
     {
         [Header("Player UI")]
         public HealthUI healthUI;
-
-
-
-
+        
     }
 }
