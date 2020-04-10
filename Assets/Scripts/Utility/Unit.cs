@@ -2,7 +2,7 @@
 
 namespace GeoShot
 { 
-    public class Unit : MonoBehaviour
+    public class Unit : Entity
     {
         [SerializeField] protected float m_MaxHealth;
         protected float m_Health;

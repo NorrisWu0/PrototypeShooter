@@ -7,7 +7,7 @@ using TMPro;
 [CreateAssetMenu(fileName = "Weapon_", menuName = "Weapon")]
 public class Weapon : ScriptableObject
 {
-    public string name;
+    public string weaponID;
     public bool isRailgun;
     public GameObject projectilePrefab;
     [Range(0, 2)]

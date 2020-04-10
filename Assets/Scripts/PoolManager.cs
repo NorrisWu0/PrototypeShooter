@@ -7,24 +7,24 @@ namespace GeoShot
     {
         #region Struct - MasterPool, Pool
         [System.Serializable]
-        struct MasterPool
+        class MasterPool
         {
-            public string masterTag;
-            public int objectsPerPool;
-            public SubPool[] subPools;
+            public string masterTag = null;
+            public int objectsPerPool = 0;
+            public SubPool[] subPools = null;
         }
 
         [System.Serializable]
-        struct SubPool
+        class SubPool
         {
             [HideInInspector]
-            public string poolTag;
-            public GameObject prefab;
-            public List<GameObject> pool;
+            public string poolTag = null;
+            public GameObject prefab = null;
+            public List<GameObject> pool = null;
         }
         #endregion
 
-        [SerializeField] MasterPool[] m_MasterPools;
+        [SerializeField] MasterPool[] m_MasterPools = null;
 
         private void Start()
         {
@@ -32,7 +32,8 @@ namespace GeoShot
                 InitializePools(_masterPool);
         }
 
-        /// <summary>
+        /// <summary>+
+        /// 
         /// Preload the pool with objects.
         /// </summary>
         private void InitializePools(MasterPool _masterPool)

@@ -4,24 +4,18 @@ using UnityEngine.UI;
 
 namespace GeoShot
 {
-    public class Enemy : MonoBehaviour
+    public class Enemy : Unit
     {
         #region Enemy Setting
         [Header("Enemy Setting")]
-        [SerializeField] float m_Health;
-        [SerializeField] float m_MaxHealth;
-    
-        [SerializeField] float m_MoveSpeed;
-        [SerializeField] float m_RotateRate;
-
-        [SerializeField] float m_Reward;
-        [SerializeField] GameObject m_Target;
+        [SerializeField] float m_MoveSpeed = 0;
+        [SerializeField] float m_RotateRate = 0;
+        [SerializeField] float m_Reward = 0;
+        [SerializeField] GameObject m_Target = null;
         #endregion
 
         #region Enemy Setup
         [Header("Enemy Setup")]
-        [SerializeField] Slider m_HealthBar;
-        [SerializeField] float m_HealthBarLerpRate;
         public GameObject deathVFX;
         [SerializeField] AudioClip m_DeathSFX;
         Rigidbody2D m_RB2D;
@@ -34,11 +28,6 @@ namespace GeoShot
             m_Target = GameObject.FindGameObjectWithTag("Player").gameObject;
         }
 
-        private void OnEnable()
-        {
-            m_Health = m_MaxHealth;
-        }
-
         private void FixedUpdate()
         {
             if (m_Target.activeSelf)
@@ -46,32 +35,19 @@ namespace GeoShot
         }
 
         #region TakeDamage
-        public void TakeDamage(float _damage)
+        public override void TakeDamage(float _damage)
         {
             m_Health -= _damage;
 
-            if (m_HealthBar != null)
-                StartCoroutine("UpdateUI");
-
             if (m_Health <= 0)
             {
-                LevelManager.instance.AddScore(m_Reward);
                 Die();
             }
         }
         #endregion
 
-        IEnumerator UpdateUI()
-        {
-            while (m_HealthBar.value != m_Health / m_MaxHealth)
-            {
-                m_HealthBar.value = Mathf.Lerp(m_HealthBar.value, (m_Health / m_MaxHealth), m_HealthBarLerpRate);
-                yield return null;
-            }
-        }
-
         #region Die
-        private void Die()
+        protected override void Die()
         {
             deathVFX.transform.parent = null;
             deathVFX.SetActive(true);

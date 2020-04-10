@@ -1,7 +1,7 @@
-﻿namespace GeoShot
-{
-    using UnityEngine;
+﻿using UnityEngine;
 
+namespace GeoShot
+{
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         private static T instance;
