@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+namespace GeoShot
 {
-    public static AudioManager instance;
-
-    public AudioSource backgroundAudioSource;
-    public AudioSource weaponAudioSource;
-    public AudioSource enemyAudioSource;
-    public AudioSource playerAudioSource;
-
-    private void Awake()
+    public class AudioManager : Singleton<AudioManager>
     {
-        if (instance == null)
-            instance = this;
+        public AudioSource backgroundAudioSource;
+        public AudioSource weaponAudioSource;
+        public AudioSource enemyAudioSource;
+        public AudioSource effectAudioSource;
+        public AudioSource playerAudioSource;
     }
 }

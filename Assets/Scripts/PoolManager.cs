@@ -24,6 +24,7 @@ namespace GeoShot
         }
         #endregion
 
+        [SerializeField] MasterPool m_EffectPools = null;
         [SerializeField] MasterPool[] m_MasterPools = null;
 
         private void Start()
@@ -87,24 +88,68 @@ namespace GeoShot
         {
             foreach (MasterPool _masterPool in m_MasterPools)
                 if (_masterPool.masterTag == _masterTag)
-                    foreach (SubPool _pool in _masterPool.subPools)
+                {
+                    if (_masterTag == "EffectPools")
                     {
-                        if (_pool.poolTag == _poolTag)
-                        {
-                            for (int i = 0; i < _pool.pool.Count; i++)
+                        foreach (SubPool _pool in _masterPool.subPools)
+                            if (_pool.poolTag == _poolTag)
                             {
-                                if (!_pool.pool[i].gameObject.activeSelf)
-                                    return _pool.pool[i];
-                            }
+                                for (int i = 0; i < _pool.pool.Count; i++)
+                                {
+                                    if (!_pool.pool[i].GetComponent<ParticleSystem>().isPlaying)
+                                        return _pool.pool[i];
+                                }
 
-                            GameObject _clone = Instantiate(_pool.prefab, transform);
-                            _clone.SetActive(false);
-                            _pool.pool.Add(_clone);
-                            return _pool.pool[_pool.pool.Count - 1];
-                        }
+                                GameObject _clone = Instantiate(_pool.prefab, transform);
+                                _pool.pool.Add(_clone);
+                                _clone.GetComponent<ParticleSystem>().Stop();
+                                return _pool.pool[_pool.pool.Count - 1];
+                            }
                     }
-        
-            Debug.LogError("This pool you trying to access doesn't exist! Check the tag you using! (" + _poolTag + ").");
+                    else
+                    {
+                        foreach (SubPool _pool in _masterPool.subPools)
+                            if (_pool.poolTag == _poolTag)
+                            {
+                                for (int i = 0; i < _pool.pool.Count; i++)
+                                {
+                                    if (!_pool.pool[i].gameObject.activeSelf)
+                                        return _pool.pool[i];
+                                }
+
+                                GameObject _clone = Instantiate(_pool.prefab, transform);
+                                _clone.SetActive(false);
+                                _pool.pool.Add(_clone);
+                                return _pool.pool[_pool.pool.Count - 1];
+                            }
+                    }
+                }
+                    
+            Debug.LogError("PoolManager: Cannot find \"" + _poolTag + "\" under \"" + _masterTag + "\".");
+            return null;
+        }
+
+        /// <summary>
+        /// Return the gameobject holding an available particle system to the object calling it.
+        /// </summary>
+        public GameObject RequestAvailableEffect(string _effectTag)
+        {
+            foreach (SubPool _pool in m_EffectPools.subPools)
+                if (_pool.poolTag == _effectTag)
+                {
+                    for (int i = 0; i < _pool.pool.Count; i++)
+                    {
+                        if (!_pool.pool[i].GetComponent<ParticleSystem>().isPlaying)
+                            return _pool.pool[i];
+                    }
+
+                    GameObject _clone = Instantiate(_pool.prefab, transform);
+                    _pool.pool.Add(_clone);
+                    _clone.GetComponent<ParticleSystem>().Stop();
+                    return _pool.pool[_pool.pool.Count - 1];
+                }
+
+            Debug.LogError("PoolManager: Cannot find \"" + _effectTag + "\" under \"EffectPools\".");
             return null;
         }
     }

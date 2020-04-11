@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 
 namespace GeoShot
-{ 
+{
     public class Unit : Entity
     {
+        [Header("Basic Config")]
         [SerializeField] protected float m_MaxHealth;
+        [SerializeField] GameObject m_DeathVFX;
+        [SerializeField] AudioClip m_DeathSFX;
+        
         protected float m_Health;
         protected bool m_IsAlive;
 
@@ -14,7 +18,10 @@ namespace GeoShot
             m_IsAlive = true;
         }
 
-        #region Take Damage
+        /// <summary>
+        /// Take damage and kill the unit when health reaches 0.
+        /// </summary>
+        /// <param name="_damage"></param>
         public virtual void TakeDamage(float _damage)
         {
             m_Health -= _damage;
@@ -22,14 +29,29 @@ namespace GeoShot
             if (m_Health <= 0)
                 Die();
         }
-        #endregion
 
-        #region Die
+        /// <summary>
+        /// This will kill this unit, play DeathVFX and DeathSFX.
+        /// </summary>
         protected virtual void Die()
         {
             m_IsAlive = false;
             gameObject.SetActive(false);
+
+            PlayDeathVFX();
+            AudioManager.Instance.effectAudioSource.PlayOneShot(m_DeathSFX);
         }
-        #endregion
+
+        private void PlayDeathVFX()
+        {
+            GameObject _particleSystem = PoolManager.Instance.RequestAvailableObject(m_DeathVFX.name, "EffectPools");
+
+            if (_particleSystem != null)
+            {
+                _particleSystem.SetActive(true);
+                _particleSystem.transform.position = transform.position;
+                _particleSystem.GetComponent<ParticleSystem>().Play();
+            }
+        }
     }
 }

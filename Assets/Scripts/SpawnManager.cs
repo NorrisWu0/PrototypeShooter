@@ -9,13 +9,14 @@ namespace GeoShot
         [System.Serializable]
         class SpawnType
         {
-            public Entity entity = null;
+            public GameObject entity = null;
             [Range(0,1f)]
             public float spawnChance = 0;
         }
         #endregion
 
         [SerializeField] SpawnType[] m_SpawnList = null;
+        [SerializeField] float m_SpawnDelay = 0;
         [SerializeField] float m_SpawnRadius = 0;
 
         private Transform m_Target = null;
@@ -24,6 +25,12 @@ namespace GeoShot
         {
             // Search player in the scene
             m_Target = GameObject.FindGameObjectWithTag("Player").transform;
+
+            if (m_Target != null)
+                StartCoroutine(CR_SpawnEntity());
+            else
+                Debug.LogError("SpawneSystem: m_Target couldn't not be found");
+
         }
 
         /// <summary>
@@ -31,24 +38,31 @@ namespace GeoShot
         /// </summary>
         IEnumerator CR_SpawnEntity()
         {
+            Debug.Log("Starting SpawnSystem");
+
             while (LevelManager.Instance.isPlaying)
+            {
                 foreach (SpawnType _spawnItem in m_SpawnList)
                     if (Random.value < _spawnItem.spawnChance)
                         if (m_Target != null)
                         {
                             // Fetch entity from Pool Manager
-                            GameObject _entity = PoolManager.Instance.RequestAvailableObject(_spawnItem.entity.entityID, "EnemyPool");
+                            GameObject _entity = PoolManager.Instance.RequestAvailableObject(_spawnItem.entity.name, "EnemyPools");
                             // Get random position at defined radius.
-                            Vector3 _spawnPos = m_Target.position * Random.insideUnitCircle * m_SpawnRadius;
+                            Vector2 _spawnPos = m_Target.position;
+                            _spawnPos += Random.insideUnitCircle.normalized * m_SpawnRadius;
 
                             // Move and activate entity
-                            _entity.transform.position = _spawnPos;
-                            _entity.SetActive(true);
+                            if (_entity != null)
+                            {
+                                _entity.transform.position = _spawnPos;
+                                _entity.SetActive(true);
+                            }
                         }
-                        else
-                            Debug.LogError("SpawneSystem: m_Target couldn't not be found");
 
-            yield return null;
+                yield return new WaitForSeconds(m_SpawnDelay);
+            }
+
         }
 
         #region Debug

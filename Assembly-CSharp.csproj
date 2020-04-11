@@ -90,6 +90,7 @@
     <Compile Include="Assets\External\TouchJoysticks\Scripts\SingleJoystick.cs" />
     <Compile Include="Assets\External\TouchJoysticks\Scripts\SingleJoystickPlayerController.cs" />
     <Compile Include="Assets\External\TouchJoysticks\Scripts\SingleJoystickTouchController.cs" />
+    <Compile Include="Assets\Prefabs\Enemy\Enemy.cs" />
     <Compile Include="Assets\Prefabs\Player\Player.cs" />
     <Compile Include="Assets\Prefabs\UI\HealthUI\HealthUI.cs" />
     <Compile Include="Assets\Prefabs\Weapon\WeaponSystem.cs" />
@@ -102,7 +103,6 @@
     <Compile Include="Assets\Scripts\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\Utility\CameraController.cs" />
-    <Compile Include="Assets\Scripts\Utility\Enemy.cs" />
     <Compile Include="Assets\Scripts\Utility\Entity.cs" />
     <Compile Include="Assets\Scripts\Utility\Projectile.cs" />
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
