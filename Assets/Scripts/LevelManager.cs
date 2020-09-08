@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using UnityEngine;
 using TMPro;
 using Cinemachine;
@@ -11,31 +12,27 @@ namespace GeoShot
 
         [Header("Level Setting")]
         [SerializeField] Player m_Player;
-        [SerializeField] float m_Timer;
-        [SerializeField] TextMeshProUGUI m_TimerText;
+        [SerializeField] int m_Score;
+        [Range(0,1)]
+        [SerializeField] float m_TimeScale;
+        [SerializeField] float m_TimeElapsed;
         [SerializeField] Animator m_CompleteText;
         [SerializeField] Animator m_FailedText;
 
         [Header("TODO")]
         [SerializeField] MenuManager m_MenuManager;
-        
-        #region Timer
-        IEnumerator StartTimer()
-        {
-            while (true)
-            {
-                m_Timer += Time.deltaTime;
-            
-                #region Update Timer UI
-                string _minutes = (m_Timer / 60).ToString("00");
-                string _seconds = (m_Timer % 60).ToString("00.00");
 
-                m_TimerText.SetText(_minutes + ":" + _seconds);
-                #endregion
-            
-                yield return null;
-            }
+        private void Update()
+        {
+            m_TimeElapsed += Time.deltaTime * m_TimeScale;
+            UIManager.Instance.UpdateTimerText(m_TimeElapsed);
         }
-        #endregion
+
+        public void UpdateScore(int _value)
+        {
+            Debug.Log("Updating ScoreText");
+            UIManager.Instance.UpdateScoreText(m_Score, m_Score + _value);
+            m_Score += _value;
+        }
     }
 }

@@ -33,8 +33,7 @@ namespace GeoShot
                 InitializePools(_masterPool);
         }
 
-        /// <summary>+
-        /// 
+        /// <summary>
         /// Preload the pool with objects.
         /// </summary>
         private void InitializePools(MasterPool _masterPool)

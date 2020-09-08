@@ -38,8 +38,6 @@ namespace GeoShot
         /// </summary>
         IEnumerator CR_SpawnEntity()
         {
-            Debug.Log("Starting SpawnSystem");
-
             while (LevelManager.Instance.isPlaying)
             {
                 foreach (SpawnType _spawnItem in m_SpawnList)
