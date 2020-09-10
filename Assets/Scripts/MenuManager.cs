@@ -9,62 +9,11 @@ namespace GeoShot
 {
     public class MenuManager : MonoBehaviour
     {
-        [Header("Pause Menu Setting")]
-        [SerializeField] GameObject m_PauseMenuUI;
-        [SerializeField] bool m_IsPaused;
-
         [Header("Loading Screen Setting")]
         [SerializeField] GameObject m_LoadingMaskUI;
         [SerializeField] TextMeshProUGUI m_NextSceneName;
         [SerializeField] Slider m_LoadingBar;
-
-        private void Start()
-        {
-            if (m_PauseMenuUI != null)
-                StartCoroutine(PauseMenu());
-            else
-            {
-                Cursor.visible = true;
-            }
-        }
-
-        private void Update()
-        {
-            if (m_PauseMenuUI != null)
-                if (Input.GetKeyDown(KeyCode.Escape))
-                    m_IsPaused = !m_IsPaused;
-        }
-
-        #region Pause Menu
-        IEnumerator PauseMenu()
-        {
-            while (true)
-            {
-                while (m_IsPaused)
-                {
-                    Time.timeScale = 0;
-                    Cursor.visible = true;
-                    AudioManager.Instance.backgroundAudioSource.volume = 0.2f;
-                    m_PauseMenuUI.SetActive(true);
-
-                    yield return null;
-                }
-
-                Time.timeScale = 1;
-                Cursor.visible = false;
-                AudioManager.Instance.backgroundAudioSource.volume = 0.8f;
-                m_PauseMenuUI.SetActive(false);
-
-                yield return null;
-            }
-        }
-
-        public void TogglePauseState(bool _state)
-        {
-            m_IsPaused = _state;
-        }
-        #endregion
-
+        
         #region Loading
         public void StartLevel(string _sceneName)
         {

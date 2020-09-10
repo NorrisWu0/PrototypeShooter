@@ -5007,8 +5007,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f0185ad04260748a6f1723cbfaabaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PauseMenuUI: {fileID: 2008977316}
-  m_IsPaused: 0
   m_LoadingMaskUI: {fileID: 722052978}
   m_NextSceneName: {fileID: 1433467138}
   m_LoadingBar: {fileID: 2094201765}
@@ -10331,7 +10329,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181104737}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243630003817873346, guid: fb771d00d0e8b85408531a1c40f12022,
     type: 2}
@@ -10429,7 +10427,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1181104737}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 83601e0f48ec7af4da40f24eb84b0914, type: 2}
   m_CullingMode: 0
@@ -15900,7 +15898,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 57623
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -16161,12 +16159,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &2008977316 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8231539197291388710, guid: 2cfa0ae6f0e044a468e904895b45dbe4,
-    type: 3}
-  m_PrefabInstance: {fileID: 8231539198729867394}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2039764843
 GameObject:
   m_ObjectHideFlags: 0
@@ -21234,10 +21226,15 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8231539198635652984, guid: 2cfa0ae6f0e044a468e904895b45dbe4,
+    - target: {fileID: 8231539198135913726, guid: 2cfa0ae6f0e044a468e904895b45dbe4,
         type: 3}
-      propertyPath: m_Name
-      value: ShipName
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 416000819}
+    - target: {fileID: 8231539198135913726, guid: 2cfa0ae6f0e044a468e904895b45dbe4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cfa0ae6f0e044a468e904895b45dbe4, type: 3}

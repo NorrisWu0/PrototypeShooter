@@ -14,6 +14,7 @@ namespace GeoShot
             WakeLevelUI();
             WakeShipUI();
             WakeWeaponUI();
+            WakeOtherUI();
         }
 
         private void Start()
@@ -21,6 +22,7 @@ namespace GeoShot
             StartLevelUI();
             StartShipUI();
             StartWeaponUI();
+            StartOtherUI();
         }
 
         #region Level UI
@@ -261,6 +263,45 @@ namespace GeoShot
             _value = Mathf.Clamp(_value, 0, 100);
             m_HeatValue.SetText(_value.ToString("000%"));
             m_HeatBar.color = m_HeatBarColor.Evaluate(m_HeatBar.fillAmount);
+        }
+        #endregion
+
+        #region Other UI
+        [Header("Other UI")]
+        [SerializeField] GameObject m_PauseMenu = null;
+        [SerializeField] GameObject m_RoundResult = null;
+
+        private bool m_IsOtherUISetup = false;
+
+        private void WakeOtherUI()
+        {
+            // Check if reference is setup
+            if (m_PauseMenu == null)
+                Debug.LogError("Other UI: No Reference to pause menu!!");
+            else if (m_RoundResult == null)
+                Debug.LogError("Other UI: No Reference to round result UI!!");
+            else
+                m_IsOtherUISetup = true;
+        }
+
+        private void StartOtherUI()
+        {
+            // Setup health ui if reference to components are validated
+            if (m_IsOtherUISetup)
+            {
+                m_PauseMenu.SetActive(false);
+                m_RoundResult.SetActive(false);
+            }
+        }
+
+        /// <summary>
+        /// Toggle Pause Menu by passing the state to this funtion
+        /// </summary>
+        /// <param name="_state">state</param>
+        public void TogglePauseMenu(bool _state)
+        {
+            m_PauseMenu.SetActive(_state);
+            Cursor.visible = !_state;
         }
         #endregion
 
