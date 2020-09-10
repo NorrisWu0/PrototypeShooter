@@ -327,7 +327,7 @@ MonoBehaviour:
   m_DeathVFX: {fileID: 977638037627857451, guid: 3a260f8969013ae4abe81758589fcec3,
     type: 3}
   m_DeathSFX: {fileID: 8300000, guid: 61fa8911a520df04092c624eb077e125, type: 3}
-  m_PlayerSpeed: 60
+  m_PlayerSpeed: 20
   m_Muzzle: {fileID: 8322673250939477351}
   m_Weaponry:
   - {fileID: 11400000, guid: 015e77d367937344e95389cdadb34f79, type: 2}
