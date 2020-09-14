@@ -145,16 +145,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5761974222048076001}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6736d1344cc0f1847b610d80ecb7529c, type: 3}
+  m_Script: {fileID: 11500000, guid: 86603a04a8b10f7429b24e11a983bc34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxHealth: 10
-  m_DeathVFX: {fileID: 977638037627857451, guid: fbddd827d36d5bf4e898986492c08976,
+  m_MaxHealth: 20
+  m_DeathVFX: {fileID: 1677653903548233174, guid: 45116ce33ba49f34685dd9ee9d36d99a,
     type: 3}
   m_DeathSFX: {fileID: 8300000, guid: 72aac466946257646b431a328d7182af, type: 3}
   m_Velocity: 15
-  m_RotateSpeed: 0.02
-  m_Reward: 50
+  m_RotateSpeed: 5
+  m_Reward: 300
 --- !u!1001 &7044070362776126957
 PrefabInstance:
   m_ObjectHideFlags: 0

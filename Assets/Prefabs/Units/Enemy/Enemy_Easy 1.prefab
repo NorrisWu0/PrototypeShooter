@@ -168,10 +168,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 5
   m_DeathVFX: {fileID: 1677653903548233174}
-  m_DeathSFX: {fileID: 8300000, guid: 7d2c0358105134b4ba8b8234f0ccce2e, type: 3}
-  m_Velocity: 5
+  m_DeathSFX: {fileID: 8300000, guid: 72aac466946257646b431a328d7182af, type: 3}
+  m_Velocity: 22
   m_RotateSpeed: 5
-  m_Reward: 500
+  m_Reward: 200
 --- !u!1 &5931892326991573922
 GameObject:
   m_ObjectHideFlags: 0

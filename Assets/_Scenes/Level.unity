@@ -16333,10 +16333,10 @@ MonoBehaviour:
   m_SpawnList:
   - entity: {fileID: 5761974222048076001, guid: eca2a3abee4c3a54e8d9b4d4f6c04907,
       type: 3}
-    spawnChance: 0
+    spawnChance: 1
   - entity: {fileID: 5761974222048076001, guid: dba3522ad9c62fd4e9fbcd1aad1bdfd6,
       type: 3}
-    spawnChance: 0
+    spawnChance: 0.1
   - entity: {fileID: 5761974222048076001, guid: 45116ce33ba49f34685dd9ee9d36d99a,
       type: 3}
     spawnChance: 0.05
