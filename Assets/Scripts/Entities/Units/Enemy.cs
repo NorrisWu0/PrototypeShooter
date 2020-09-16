@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -44,16 +45,6 @@ namespace GeoShot
         }
 
         /// <summary>
-        /// Return value of reward for killing this enemy.
-        /// </summary>
-        /// <returns></returns>
-        public int GetReward()
-        {
-            return m_Reward;
-        }
-
-
-        /// <summary>
         /// Damage player when colliding with them
         /// </summary>
         /// <param name="_collision"></param>
@@ -64,6 +55,17 @@ namespace GeoShot
                 _collision.gameObject.GetComponent<Player>().TakeDamage(m_Health);
                 Die();
             }
+        }
+
+        /// <summary>
+        /// Update reward when enemy is killed by the player
+        /// </summary>
+        public override void TakeDamage(float _damage)
+        {
+            base.TakeDamage(_damage);
+
+            if (m_Health <= 0)
+                LevelManager.Instance.UpdateScore(m_Reward);
         }
     }
 }

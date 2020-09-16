@@ -31,7 +31,7 @@ namespace GeoShot
             if (_collision.CompareTag(m_TargetTag))
             {
                 _collision.GetComponent<Enemy>().TakeDamage(m_Damage);
-                LevelManager.Instance.UpdateScore(_collision.GetComponent<Enemy>().GetReward());
+
                 if (!m_IsAP)
                     gameObject.SetActive(false);
             }

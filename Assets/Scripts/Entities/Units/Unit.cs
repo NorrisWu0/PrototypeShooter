@@ -21,7 +21,6 @@ namespace GeoShot
         /// <summary>
         /// Take damage and kill the unit when health reaches 0.
         /// </summary>
-        /// <param name="_damage"></param>
         public virtual void TakeDamage(float _damage)
         {
             m_Health -= _damage;
