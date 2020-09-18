@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [SerializeField] Transform m_Reticle;
-    [SerializeField] private Transform m_Player;
+    [SerializeField] Transform m_Reticle = null;
+    [SerializeField] Transform m_Player = null;
+    [SerializeField] Transform m_CameraDolly = null;
 
     [Header("MidPoint Setting")]
-    [SerializeField] private bool m_EnableLerpToMidPoint = false;
-    [SerializeField] private float m_LerpSpeed;
-    [SerializeField] private Vector2 m_Boundary;
+    public bool enableLerpToMidPoint = false;
+    [SerializeField] float m_LerpSpeed;
+    [SerializeField] Vector2 m_Boundary;
 
     private Vector3 m_MidPoint;
 
@@ -41,7 +42,7 @@ public class CameraController : MonoBehaviour
             m_Reticle.position = new Vector3(_MousePosition.x, _MousePosition.y, 0);
 
 
-        if (m_EnableLerpToMidPoint)
+        if (enableLerpToMidPoint)
         {
             // Find mid point between mouse and player position.
             m_MidPoint = (_MousePosition - m_Player.position) / 2;
@@ -50,15 +51,47 @@ public class CameraController : MonoBehaviour
             m_MidPoint = new Vector3(Mathf.Clamp(m_MidPoint.x, -m_Boundary.x, m_Boundary.x), Mathf.Clamp(m_MidPoint.y, -m_Boundary.y, m_Boundary.y), -10);
 
             // Lerp camera position to mid point
-            Camera.main.transform.localPosition = Vector3.Lerp(Camera.main.transform.localPosition, m_MidPoint, m_LerpSpeed); // THIS MIGHT CAUSE PERFORMANCE ISSUE ON LOWER END DEVICE.
+            m_CameraDolly.localPosition = Vector3.Lerp(m_CameraDolly.localPosition, m_MidPoint, m_LerpSpeed);
         }
+        else
+            m_CameraDolly.localPosition = Vector3.Lerp(m_CameraDolly.localPosition, new Vector3(0, 0, -10), m_LerpSpeed);
     }
 
+    /// <summary>
+    /// Change camera orthographic size
+    /// </summary>
+    public void StartCameraZoon(float _value)
+    {
+        StartCoroutine(CR_ZoomCamera(_value, Camera.main.orthographicSize));
+    }
+
+    private IEnumerator CR_ZoomCamera(float _value, float _original)
+    {
+        float _t = .7f;
+
+        while (_t > 0)
+        {
+            Camera.main.orthographicSize = Mathf.SmoothStep(_value, _original, _t);
+
+            _t -= Time.deltaTime;
+            yield return null;
+        }
+
+        Camera.main.orthographicSize = _value;
+    }
+
+    /// <summary>
+    /// Start the camera shake from other script
+    /// </summary>
+    public void StartCameraShake(float _duration, float _magnitute)
+    {
+        StartCoroutine(CR_ShakeCamera(_duration, _magnitute));
+    }
 
     /// <summary>
     /// Shake camera based on the duration and the magnitute given.
     /// </summary>
-    public IEnumerator CR_ShakeCamera(float _duration, float _magnitute)
+    private IEnumerator CR_ShakeCamera(float _duration, float _magnitute)
     {
         float _t = _duration;
 

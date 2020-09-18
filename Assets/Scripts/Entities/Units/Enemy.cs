@@ -15,19 +15,25 @@ namespace GeoShot
         [SerializeField] int m_Reward = 0;
         
         private Rigidbody2D m_RB2D;
-        private GameObject m_Target = null;
+        private Transform m_Target = null;
 
         private void Awake()
         {
             m_RB2D = GetComponent<Rigidbody2D>();
-            if (GameObject.FindGameObjectWithTag("Player").gameObject != null)
-                m_Target = GameObject.FindGameObjectWithTag("Player").gameObject;
         }
 
         private void Update()
         {
-            if (m_Target != null && m_Target.activeSelf)
+            if (m_Target != null && m_Target.gameObject.activeSelf)
                 ChaseTarget();
+        }
+
+        /// <summary>
+        /// Set target for this enemy to chase.
+        /// </summary>
+        public void SetTarget(Transform _target)
+        {
+            m_Target = _target;
         }
 
         /// <summary>
@@ -47,7 +53,6 @@ namespace GeoShot
         /// <summary>
         /// Damage player when colliding with them
         /// </summary>
-        /// <param name="_collision"></param>
         private void OnCollisionEnter2D(Collision2D _collision)
         {
             if (_collision.gameObject.CompareTag("Player"))

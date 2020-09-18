@@ -59,5 +59,10 @@ namespace GeoShot
             UIManager.Instance.UpdateScoreText(m_Score, m_Score + _value);
             m_Score += _value;
         }
+
+        public void EndLevel()
+        {
+            isPlaying = false;
+        }
     }
 }

@@ -10,8 +10,10 @@ namespace GeoShot
     {
         Rigidbody2D m_RB2D;
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
+
             m_IsAlive = true;
             m_RB2D = GetComponent<Rigidbody2D>();
 
@@ -119,6 +121,21 @@ namespace GeoShot
             base.TakeDamage(_damage);
             UIManager.Instance.UpdateHealthBar(m_Health, m_MaxHealth);
         }
+
+        /// <summary>
+        /// Kill the player and shake camera when destroyed
+        /// </summary>
+        protected override void Die()
+        {
+            m_CameraController.enableLerpToMidPoint = false;
+            m_CameraController.StartCameraZoon(10);
+            m_CameraController.StartCameraShake(0.3f, 3.0f);
+
+            LevelManager.Instance.EndLevel();
+
+            base.Die();
+        }
+
         #endregion
     }
 }
