@@ -9876,7 +9876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1672f8d1a73a8fa4facc2fa31636e09a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DontDestroyOnLoad: 1
+  m_DontDestroyOnLoad: 0
   isPlaying: 0
   m_Player: {fileID: 0}
   m_Score: 0
@@ -10309,7 +10309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e93fd6b5761fad48ae90231516787cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DontDestroyOnLoad: 1
+  m_DontDestroyOnLoad: 0
   backgroundAudioSource: {fileID: 1181104739}
   weaponAudioSource: {fileID: 1554481100}
   enemyAudioSource: {fileID: 1542516229}
@@ -10619,7 +10619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aca71b160a3e114a9218df147c7b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DontDestroyOnLoad: 1
+  m_DontDestroyOnLoad: 0
   toggleDebugMode: 1
 --- !u!1 &1534513244
 GameObject:
@@ -15969,7 +15969,7 @@ Camera:
   m_GameObject: {fileID: 1637664856}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -21338,6 +21338,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8231539199106608104, guid: 2cfa0ae6f0e044a468e904895b45dbe4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 186418388}
+    - target: {fileID: 8231539199106608104, guid: 2cfa0ae6f0e044a468e904895b45dbe4,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: StartLevel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cfa0ae6f0e044a468e904895b45dbe4, type: 3}

@@ -15,11 +15,18 @@ namespace GeoShot
         [SerializeField] Slider m_LoadingBar;
         
         #region Loading
+        /// <summary>
+        /// Switch to a given scene and reset timeScale to 1 just in case the timescale was modified in other scene right before switches.
+        /// </summary>
         public void StartLevel(string _sceneName)
         {
             StartCoroutine(LoadingLevel(_sceneName));
+            Time.timeScale = 1;
         }
 
+        /// <summary>
+        /// The actual loading operation
+        /// </summary>
         IEnumerator LoadingLevel(string _sceneName)
         {
             SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
@@ -39,7 +46,10 @@ namespace GeoShot
             }
         }
         #endregion
-    
+
+        /// <summary>
+        /// This is pretty self-explanatory
+        /// </summary>
         public void ExitGame()
         {
             Application.Quit();

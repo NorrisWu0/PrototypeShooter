@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f45ce6a1204ff42a104c57795b1463, type: 3}
   m_Name: Weapon_Minigun
   m_EditorClassIdentifier: 
-  weaponName: 
+  weaponName: VU-3 Minigun
   projectileType: {fileID: 4025346818998850264, guid: 9ad9300fbeeba964bbef1cf038c615bc,
     type: 3}
   roundPerMinutes: 900
