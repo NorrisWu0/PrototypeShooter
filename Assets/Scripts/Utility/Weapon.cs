@@ -7,60 +7,45 @@ namespace GeoShot
     [CreateAssetMenu(fileName = "Weapon_", menuName = "Weapon")]
     public class Weapon : ScriptableObject
     {
-        public string weaponName;
+        [SerializeField] bool m_IsFiring = false;
 
         [Header("Weapon Stats")]
-        public GameObject projectileType;
+        [SerializeField] GameObject m_ProjectileType = null;
         [Range(60, 1200)]
-        public float roundPerMinutes;
-        [Range(1, 4)]
-        public float secondsBeforeOverHeat;
+        [SerializeField] float m_RPM = 0;
         [Range(0, 20)]
-        public float weaponDispersion;
+        [SerializeField] float m_Dispersion = 0;
 
         [Header("Weapon Config")]
-        public AudioClip weaponSFX;
-        public bool isFiring;
-        public float heatLevel;
+        [SerializeField] AudioClip m_WeaponSFX = null;
 
-        [Space(20)]
-        private float m_NextShotTimer;
-
-        private void OnEnable()
-        {
-            //Debug.Log("My turn");
-        }
+        [SerializeField] float m_NextShotTimer = 0;
 
         public void FireWeapon(Transform _muzzle)
         {
-            if (Time.time > m_NextShotTimer && heatLevel < secondsBeforeOverHeat)
+            if (Time.time > m_NextShotTimer)
             {
-                GameObject _projectile = PoolManager.Instance.RequestAvailableObject(projectileType.name, "ProjectilePools");
+                GameObject _projectile = PoolManager.Instance.RequestAvailableObject(m_ProjectileType.name, "ProjectilePools");
                 _projectile.transform.position = _muzzle.position;
                 _projectile.transform.rotation = _muzzle.rotation;
-                _projectile.transform.Rotate(new Vector3(0, 0, Random.Range(-weaponDispersion, weaponDispersion)));
+                _projectile.transform.Rotate(new Vector3(0, 0, Random.Range(-m_Dispersion, m_Dispersion)));
                 _projectile.SetActive(true);
 
-                //heatLevel += 1 / (roundPerMinutes / 60);
-                //UIManager.Instance.UpdateHeatBar(heatLevel / secondsBeforeOverHeat);
+                AudioManager.Instance.weaponAudioSource.PlayOneShot(m_WeaponSFX);
 
-                //AudioManager.Instance.weaponAudioSource.PlayOneShot(weaponSFX);
-
-                m_NextShotTimer = Time.time + (60 / roundPerMinutes);
+                m_NextShotTimer = Time.time + (60 / m_RPM);
             }
         }
 
-        IEnumerator CR_WeaponCooldown()
+
+        int counter = 0;
+
+        public void UpgradeWeapon()
         {
-            while (LevelManager.Instance.isPlaying && !isFiring)
-            {
-                if (heatLevel >= 0)
-                    heatLevel -= Time.deltaTime / secondsBeforeOverHeat;
-
-                yield return null;
-            }
+            counter++;
+            m_RPM *= 1.2f;
+            m_Dispersion *= 1.15f;
+            Debug.Log(counter);
         }
-
     }
-
 }

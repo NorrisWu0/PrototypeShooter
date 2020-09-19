@@ -55,7 +55,6 @@ namespace GeoShot
 
         public void UpdateScore(int _value)
         {
-            Debug.Log("Updating ScoreText");
             UIManager.Instance.UpdateScoreText(m_Score, m_Score + _value);
             m_Score += _value;
         }

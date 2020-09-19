@@ -17,14 +17,21 @@ namespace GeoShot
             m_IsAlive = true;
             m_RB2D = GetComponent<Rigidbody2D>();
 
-            InitWeaponry();
+            InitWeapon();
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButton(0))
+                m_Weapon.FireWeapon(m_Muzzle);
+
+            if (Input.GetMouseButtonDown(1))
+                m_Weapon.UpgradeWeapon();
         }
 
         void FixedUpdate()
         {
             MovePlayer();
-
-            WeaponLoop();
         }
 
         #region Movement System
@@ -56,60 +63,16 @@ namespace GeoShot
         #region Weapon System
         [Header("Weapon System")]
         [SerializeField] Transform m_Muzzle = null;
-        [SerializeField] Weapon[] m_Weaponry = null;
-
-        private int m_WeaponryIndex = 0;
+        [SerializeField] Weapon m_Weapon = null;
 
         /// <summary>
         /// Create a copy of each (SO)Weapon to break off the reference to original weapon asset.
         /// </summary>
-        private void InitWeaponry()
+        private void InitWeapon()
         {
-            Weapon[] _temp = new Weapon[m_Weaponry.Length];
-            for (int i = 0; i < m_Weaponry.Length; i++)
-                _temp[i] = Instantiate(m_Weaponry[i]);
-
-            m_Weaponry = _temp;
+            m_Weapon = Instantiate(m_Weapon);
         }
 
-        /// <summary>
-        /// The Weapon System's Update()
-        /// </summary>
-        private void WeaponLoop()
-        {
-            if (Time.timeScale != 0)
-            {
-                if (Input.mouseScrollDelta.y > 0)
-                    SwitchWeapon(-1);
-                else if (Input.mouseScrollDelta.y < 0)
-                    SwitchWeapon(1);
-
-                if (Input.GetMouseButton(0))
-                {
-                    FireWeapon();
-                    m_Weaponry[m_WeaponryIndex].isFiring = true;
-                }
-                else
-                    m_Weaponry[m_WeaponryIndex].isFiring = false;
-            }
-        }
-
-        /// <summary>
-        /// Switching the weapon by modifying the index value to determine which weapon to use in the weaponry.
-        /// </summary>
-        private void SwitchWeapon(int _value)
-        {
-            m_WeaponryIndex = Mathf.Abs(m_WeaponryIndex + _value) % m_Weaponry.Length;
-            UIManager.Instance.SetWeaponName(m_Weaponry[m_WeaponryIndex].weaponName);
-        }
-
-        /// <summary>
-        /// Fire current weapon.
-        /// </summary>
-        private void FireWeapon()
-        {
-            m_Weaponry[m_WeaponryIndex].FireWeapon(m_Muzzle);
-        }
         #endregion
 
         #region Vitality System
