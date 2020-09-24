@@ -151,7 +151,7 @@ MonoBehaviour:
   m_MaxHealth: 20
   m_DeathVFX: {fileID: 1677653903548233174, guid: 45116ce33ba49f34685dd9ee9d36d99a,
     type: 3}
-  m_DeathSFX: {fileID: 8300000, guid: 72aac466946257646b431a328d7182af, type: 3}
+  m_DeathSFX: {fileID: 8300000, guid: 1bc1c9bbf53d09f44ba8a6c52b608a24, type: 3}
   m_Velocity: 15
   m_RotateSpeed: 5
   m_Reward: 300

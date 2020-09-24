@@ -8,19 +8,20 @@ namespace GeoShot
 {
     public class LevelManager : Singleton<LevelManager>
     {
-        public bool isPlaying;
+        public bool isPlaying = false;
+        public bool isEnded = false;
 
         [Header("Level Setting")]
-        [SerializeField] Player m_Player;
-        [SerializeField] int m_Score;
+        [SerializeField] Player m_Player = null;
+        [SerializeField] int m_Score = 0;
         [Range(0,1)]
-        [SerializeField] float m_TimeScale;
-        [SerializeField] float m_TimeElapsed;
-        [SerializeField] Animator m_CompleteText;
-        [SerializeField] Animator m_FailedText;
+        [SerializeField] float m_TimeScale = 1;
+        [SerializeField] float m_TimeElapsed = 0;
+        [SerializeField] Animator m_CompleteText = null;
+        [SerializeField] Animator m_FailedText = null;
 
         [Header("TODO")]
-        [SerializeField] MenuManager m_MenuManager;
+        [SerializeField] MenuManager m_MenuManager = null;
 
         private void Update()
         {
@@ -32,8 +33,11 @@ namespace GeoShot
             }
             #endregion
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) && !isEnded)
                 ToggleGamePause();
+            else if (Input.GetKeyDown(KeyCode.Escape) && isEnded)
+                m_MenuManager.StartLevel("MainMenu");
+
         }
 
         public void ToggleGamePause() 
@@ -62,6 +66,8 @@ namespace GeoShot
         public void EndLevel()
         {
             isPlaying = false;
+            isEnded = true;
+            UIManager.Instance.ActivateFinalScreen();
         }
     }
 }

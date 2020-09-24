@@ -22,11 +22,8 @@ namespace GeoShot
 
         private void Update()
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && LevelManager.Instance.isPlaying)
                 m_Weapon.FireWeapon(m_Muzzle);
-
-            if (Input.GetMouseButtonDown(1))
-                m_Weapon.UpgradeWeapon();
         }
 
         void FixedUpdate()
@@ -72,7 +69,6 @@ namespace GeoShot
         {
             m_Weapon = Instantiate(m_Weapon);
         }
-
         #endregion
 
         #region Vitality System

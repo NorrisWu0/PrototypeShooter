@@ -108,7 +108,6 @@
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utility\WaypointPointer.cs" />
     <Compile Include="Assets\Scripts\Utility\Weapon.cs" />
-    <None Include="Assets\Audios\LoopAndMusicFree\_readme\readme_en_ver1.4.txt" />
     <None Include="Assets\External\Realistic Glitches Lite\Assets\Shaders\BleedingColors.shader" />
     <None Include="Assets\Resources\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\Resources\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -133,7 +132,6 @@
     <None Include="Assets\External\Realistic Glitches Lite\Assets\Shaders\Distortion2D__FullOnly.shader" />
     <None Include="Assets\Resources\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\Resources\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
-    <None Include="Assets\Audios\LoopAndMusicFree\_readme\readme_jp_ver1.4.txt" />
     <None Include="Assets\Resources\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\Resources\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
     <Reference Include="UnityEngine">

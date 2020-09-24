@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace GeoShot
 {
-    [CreateAssetMenu(fileName = "Weapon_", menuName = "Weapon")]
     public class Weapon : ScriptableObject
     {
-        [SerializeField] bool m_IsFiring = false;
+        private bool m_IsFiring = false;
 
         [Header("Weapon Stats")]
         [SerializeField] GameObject m_ProjectileType = null;
@@ -18,8 +17,9 @@ namespace GeoShot
 
         [Header("Weapon Config")]
         [SerializeField] AudioClip m_WeaponSFX = null;
-
         [SerializeField] float m_NextShotTimer = 0;
+        [SerializeField] float m_RPMModifier = 0;
+        [SerializeField] float m_DispersionModifier = 0;
 
         public void FireWeapon(Transform _muzzle)
         {
@@ -37,15 +37,13 @@ namespace GeoShot
             }
         }
 
-
-        int counter = 0;
-
+        /// <summary>
+        /// Upgrade the weapon when player picks up a powerup
+        /// </summary>
         public void UpgradeWeapon()
         {
-            counter++;
-            m_RPM *= 1.2f;
-            m_Dispersion *= 1.15f;
-            Debug.Log(counter);
+            m_RPM *= m_RPMModifier;
+            m_Dispersion *= m_DispersionModifier;
         }
     }
 }

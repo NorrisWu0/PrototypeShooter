@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f45ce6a1204ff42a104c57795b1463, type: 3}
   m_Name: Weapon
   m_EditorClassIdentifier: 
-  m_IsFiring: 0
   m_ProjectileType: {fileID: 4025346818998850264, guid: 9ad9300fbeeba964bbef1cf038c615bc,
     type: 3}
   m_RPM: 120
   m_Dispersion: 1
   m_WeaponSFX: {fileID: 8300000, guid: 07c445bc626329940bd810151cf80bb5, type: 3}
   m_NextShotTimer: 0
+  m_RPMModifier: 1.2
+  m_DispersionModifier: 1.1

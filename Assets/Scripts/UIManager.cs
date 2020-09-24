@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 namespace GeoShot
 {
@@ -76,7 +77,7 @@ namespace GeoShot
             m_ScoreText.text = _to.ToString("00000000");
             m_IsSTextLerping = false;
         }
-        
+
         public void UpdateTimerText(float _value)
         {
             if (m_IsLevelUISetup)
@@ -269,7 +270,7 @@ namespace GeoShot
         #region Other UI
         [Header("Other UI")]
         [SerializeField] GameObject m_PauseMenu = null;
-        [SerializeField] GameObject m_RoundResult = null;
+        [SerializeField] GameObject m_FinalScreen = null;
 
         private bool m_IsOtherUISetup = false;
 
@@ -278,7 +279,7 @@ namespace GeoShot
             // Check if reference is setup
             if (m_PauseMenu == null)
                 Debug.LogError("Other UI: No Reference to pause menu!!");
-            else if (m_RoundResult == null)
+            else if (m_FinalScreen == null)
                 Debug.LogError("Other UI: No Reference to round result UI!!");
             else
                 m_IsOtherUISetup = true;
@@ -290,7 +291,7 @@ namespace GeoShot
             if (m_IsOtherUISetup)
             {
                 m_PauseMenu.SetActive(false);
-                m_RoundResult.SetActive(false);
+                m_FinalScreen.SetActive(false);
             }
         }
 
@@ -302,6 +303,11 @@ namespace GeoShot
         {
             m_PauseMenu.SetActive(_state);
             Cursor.visible = !_state;
+        }
+
+        public void ActivateFinalScreen()
+        {
+            m_FinalScreen.SetActive(true);
         }
         #endregion
 
