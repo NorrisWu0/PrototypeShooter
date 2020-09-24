@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class Entity : MonoBehaviour
     {

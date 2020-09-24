@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class Weapon : ScriptableObject
     {
         private bool m_IsFiring = false;
 
         [Header("Weapon Stats")]
+        [SerializeField] float m_WeaponLevel = 0;
         [SerializeField] GameObject m_ProjectileType = null;
         [Range(60, 1200)]
         [SerializeField] float m_RPM = 0;
-        [Range(0, 20)]
+        [Range(0, 10)]
         [SerializeField] float m_Dispersion = 0;
 
         [Header("Weapon Config")]
@@ -42,8 +43,15 @@ namespace GeoShot
         /// </summary>
         public void UpgradeWeapon()
         {
+            m_WeaponLevel++;
             m_RPM *= m_RPMModifier;
             m_Dispersion *= m_DispersionModifier;
+
+            m_RPM = Mathf.Clamp(m_RPM, 60, 1200);
+            m_Dispersion = Mathf.Clamp(m_Dispersion, 0, 10);
+            m_WeaponLevel = Mathf.Clamp(m_WeaponLevel, 0, 10);
+
+            UIManager.Instance.UpdateWeaponLevelBar(m_WeaponLevel / 10);
         }
     }
 }

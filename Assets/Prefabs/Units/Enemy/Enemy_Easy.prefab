@@ -173,6 +173,8 @@ MonoBehaviour:
   m_Velocity: 18
   m_RotateSpeed: 5
   m_Reward: 100
+  m_DropChance: 0.2
+  m_Drop: {fileID: 2800777239864754266, guid: 08064b828f7748549ad5a75111c2ef6a, type: 3}
 --- !u!1 &5931892326991573922
 GameObject:
   m_ObjectHideFlags: 0

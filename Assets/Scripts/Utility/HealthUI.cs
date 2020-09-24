@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class HealthUI : MonoBehaviour
     {

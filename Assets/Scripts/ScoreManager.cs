@@ -2,7 +2,7 @@
 using UnityEngine;
 using TMPro;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class ScoreManager : Singleton<ScoreManager>
     {

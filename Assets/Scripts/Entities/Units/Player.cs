@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class Player : Unit
     {
@@ -69,9 +69,30 @@ namespace GeoShot
         {
             m_Weapon = Instantiate(m_Weapon);
         }
+        
+        /// <summary>
+        /// Powerup weapon.
+        /// </summary>
+        public void WeaponPowerup()
+        {
+            m_Weapon.UpgradeWeapon();
+        }
         #endregion
 
         #region Vitality System
+        /// <summary>
+        /// Regenerate 3 - 10% of health.
+        /// </summary>
+        public void RegenHealth()
+        {
+            m_Health += (m_MaxHealth * Random.Range(0.03f, 0.1f));
+
+            if (m_Health > m_MaxHealth)
+                m_Health = m_MaxHealth;
+
+            UIManager.Instance.UpdateHealthBar(m_Health, m_MaxHealth);
+        }
+
         /// <summary>
         /// Take damage when hit, and ask UIManager to update health UI.
         /// </summary>
@@ -94,7 +115,6 @@ namespace GeoShot
 
             base.Die();
         }
-
         #endregion
     }
 }

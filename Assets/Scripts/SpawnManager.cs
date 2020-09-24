@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class SpawnManager : MonoBehaviour
     {

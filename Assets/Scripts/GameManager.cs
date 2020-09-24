@@ -1,4 +1,4 @@
-﻿namespace GeoShot
+﻿namespace PrototypeShooter
 {
     public class GameManager : Singleton<GameManager>
     {

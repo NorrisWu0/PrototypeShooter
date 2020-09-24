@@ -1,19 +1,24 @@
 ﻿using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class Enemy : Unit
     {
         [Header("Movement Config")]
         [SerializeField] float m_Velocity = 0;
         [SerializeField] float m_RotateSpeed = 0;
-        
+
         [Header("Enemy Config")]
         [SerializeField] int m_Reward = 0;
-        
+        [Range(0, 1)]
+        [SerializeField] float m_DropChance = 0;
+        [SerializeField] GameObject m_Drop;
+
+
         private Rigidbody2D m_RB2D;
         private Transform m_Target = null;
 
@@ -70,7 +75,21 @@ namespace GeoShot
             base.TakeDamage(_damage);
 
             if (m_Health <= 0)
+            {
                 LevelManager.Instance.UpdateScore(m_Reward);
+
+                if (Random.value < m_DropChance)
+                {
+                    if (m_Drop != null)
+                    {
+                        GameObject _drop = PoolManager.Instance.RequestAvailableObject(m_Drop.name, "CollectablePools");
+                        _drop.transform.position = transform.position;
+                        _drop.SetActive(true);
+                    }
+                    else
+                        Debug.LogError("[Enemy]: Collectable m_Drop is not defined!!");
+                }
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {

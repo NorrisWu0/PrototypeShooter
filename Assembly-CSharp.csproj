@@ -104,6 +104,7 @@
     <Compile Include="Assets\Scripts\SpawnManager.cs" />
     <Compile Include="Assets\Scripts\UIManager.cs" />
     <Compile Include="Assets\Scripts\Utility\CameraController.cs" />
+    <Compile Include="Assets\Scripts\Utility\Collectable.cs" />
     <Compile Include="Assets\Scripts\Utility\HealthUI.cs" />
     <Compile Include="Assets\Scripts\Utility\Singleton.cs" />
     <Compile Include="Assets\Scripts\Utility\WaypointPointer.cs" />

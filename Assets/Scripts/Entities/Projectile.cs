@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class Projectile : MonoBehaviour
     {

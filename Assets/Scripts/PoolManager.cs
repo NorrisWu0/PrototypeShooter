@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class PoolManager : Singleton<PoolManager>
     {

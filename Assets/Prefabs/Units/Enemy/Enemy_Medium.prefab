@@ -155,6 +155,8 @@ MonoBehaviour:
   m_Velocity: 15
   m_RotateSpeed: 5
   m_Reward: 300
+  m_DropChance: 0.3
+  m_Drop: {fileID: 8219648492668191270, guid: 746fbbb168057a84f93bc25096b12761, type: 3}
 --- !u!1001 &7044070362776126957
 PrefabInstance:
   m_ObjectHideFlags: 0

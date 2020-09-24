@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class MenuManager : MonoBehaviour
     {
@@ -22,6 +22,9 @@ namespace GeoShot
         {
             StartCoroutine(LoadingLevel(_sceneName));
             Time.timeScale = 1;
+
+            if (_sceneName == "MainMenu")
+                Cursor.visible = true;
         }
 
         /// <summary>

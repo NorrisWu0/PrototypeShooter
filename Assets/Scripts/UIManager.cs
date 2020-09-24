@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class UIManager : Singleton<UIManager>
     {
@@ -219,25 +219,28 @@ namespace GeoShot
 
         #region Weapon UI
         [Header("Weapon UI")]
-        [SerializeField] TextMeshProUGUI m_WeaponName;
-        [SerializeField] TextMeshProUGUI m_HeatValue;
-        [SerializeField] Image m_HeatBar;
-        [SerializeField] Gradient m_HeatBarColor = null;
-        [SerializeField] Animator m_HeatBarAnim = null;
+        //[SerializeField] TextMeshProUGUI m_WeaponLevelText = null;
+        //[SerializeField] TextMeshProUGUI m_HeatValue;
+        [SerializeField] Image m_WeaponLevelBar = null;
+        [SerializeField] float m_WLevelBarLerpRate = 0;
+        //[SerializeField] Gradient m_HeatBarColor = null;
+        //[SerializeField] Animator m_HeatBarAnim = null;
 
         private bool m_IsWeaponUISetup = false;
+        private float m_TargetWLevelValue = 0;
+        private bool m_IsWLevelBarLerping = false;
 
         private void WakeWeaponUI()
         {
             // Check if reference is setup
-            if (m_WeaponName == null)
-                Debug.LogError("Weapon UI: No Reference to weapon name!!");
-            else if (m_HeatValue == null)
-                Debug.LogError("Weapon UI: No Reference to heat value!!");
-            else if (m_HeatBar == null)
+            //if (m_WeaponLevelText == null)
+            //    Debug.LogError("Weapon UI: No Reference to weapon name!!");
+            //else if (m_HeatValue == null)
+            //    Debug.LogError("Weapon UI: No Reference to heat value!!");
+            if (m_WeaponLevelBar == null)
                 Debug.LogError("Weapon UI: No Reference to heat bar!!");
-            else if (m_HeatBarAnim == null)
-                Debug.LogError("Weapon UI: No Reference to heat bar animator!!");
+            //else if (m_HeatBarAnim == null)
+            //    Debug.LogError("Weapon UI: No Reference to heat bar animator!!");
             else
                 m_IsWeaponUISetup = true;
         }
@@ -247,24 +250,48 @@ namespace GeoShot
             // Setup health ui if reference to components are validated
             if (m_IsWeaponUISetup)
             {
-                m_HeatValue.text = 0.ToString("000%");
-                m_HeatBar.fillAmount = 0;
-                m_HeatBar.color = m_HeatBarColor.Evaluate(0);
+                //m_HeatValue.text = 0.ToString("000%");
+                m_WeaponLevelBar.fillAmount = 0;
+                //m_WeaponLevelBar.color = m_HeatBarColor.Evaluate(0);
             }
         }
 
-        public void SetWeaponName(string _weaponName)
+        //public void SetWeaponName(string _weaponName)
+        //{
+        //    m_WeaponLevelText.SetText(_weaponName);
+        //}
+
+        //public void UpdateHeatBar(float _value)
+        //{
+        //    m_WeaponLevelBar.fillAmount = _value;
+        //    _value = Mathf.Clamp(_value, 0, 100);
+        //    m_HeatValue.SetText(_value.ToString("000%"));
+        //    m_WeaponLevelBar.color = m_HeatBarColor.Evaluate(m_WeaponLevelBar.fillAmount);
+        //}
+
+        public void UpdateWeaponLevelBar(float _value)
         {
-            m_WeaponName.SetText(_weaponName);
+            m_TargetWLevelValue = _value;
+            if (!m_IsWLevelBarLerping)
+               StartCoroutine(CR_LerpWeaponLevelBar());
         }
 
-        public void UpdateHeatBar(float _value)
+        IEnumerator CR_LerpWeaponLevelBar()
         {
-            m_HeatBar.fillAmount = _value;
-            _value = Mathf.Clamp(_value, 0, 100);
-            m_HeatValue.SetText(_value.ToString("000%"));
-            m_HeatBar.color = m_HeatBarColor.Evaluate(m_HeatBar.fillAmount);
+            m_IsWLevelBarLerping = true;
+            
+            float _timeLeft = 1;
+            float _from = m_WeaponLevelBar.fillAmount;
+
+            while (_timeLeft > 0)
+            {
+                m_WeaponLevelBar.fillAmount = Mathf.SmoothStep(m_TargetWLevelValue, _from, _timeLeft);
+                _timeLeft -= (Time.deltaTime / m_WLevelBarLerpRate);
+                yield return null;
+            }
+            m_IsWLevelBarLerping = false;
         }
+
         #endregion
 
         #region Other UI

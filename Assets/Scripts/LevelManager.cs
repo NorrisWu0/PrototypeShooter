@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using Cinemachine;
 
-namespace GeoShot
+namespace PrototypeShooter
 {
     public class LevelManager : Singleton<LevelManager>
     {
