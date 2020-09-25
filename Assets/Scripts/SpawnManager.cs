@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace PrototypeShooter
 {
-    public class SpawnManager : MonoBehaviour
+    public class SpawnManager : Singleton<SpawnManager>
     {
         #region Struct - SpawnType
         [System.Serializable]
@@ -31,6 +31,15 @@ namespace PrototypeShooter
             else
                 Debug.LogError("SpawneSystem: m_Target couldn't not be found");
 
+        }
+
+        /// <summary>
+        /// Reduce the interval between spawns
+        /// </summary>
+        public void ReduceSpawnDelay()
+        {
+            m_SpawnDelay *= 0.8f;
+            m_SpawnDelay = Mathf.Clamp(m_SpawnDelay, 0.5f, 100);
         }
 
         /// <summary>

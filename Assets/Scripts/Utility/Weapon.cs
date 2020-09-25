@@ -52,6 +52,7 @@ namespace PrototypeShooter
             m_WeaponLevel = Mathf.Clamp(m_WeaponLevel, 0, 10);
 
             UIManager.Instance.UpdateWeaponLevelBar(m_WeaponLevel / 10);
+            SpawnManager.Instance.ReduceSpawnDelay();
         }
     }
 }
