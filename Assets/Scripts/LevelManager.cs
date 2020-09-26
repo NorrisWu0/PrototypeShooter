@@ -47,11 +47,13 @@ namespace PrototypeShooter
             
             if (isPlaying)
             {
+                Cursor.visible = false;
                 AudioManager.Instance.backgroundAudioSource.volume = 0.8f;
                 Time.timeScale = 1.0f;
             }
             else
             {
+                Cursor.visible = true;
                 AudioManager.Instance.backgroundAudioSource.volume = 0.2f;
                 Time.timeScale = 0.0f;
             }
